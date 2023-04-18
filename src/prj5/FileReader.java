@@ -1,27 +1,42 @@
 package prj5;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class FileReader {
 
     private SLList list;
 
-    public FileReader(String influencerFileName) {
+    /**
+     * the FileReader Constructor
+     * 
+     * @param influencerFileName
+     *            the file name
+     * @throws FileNotFoundException
+     */
+    public FileReader(String influencerFileName) throws FileNotFoundException {
 
         list = readInputFile(influencerFileName);
-
-        Data data = new Data();
     }
 
 
-    public SLList readInputFile(String influencerFile) {
+    /**
+     * reading in data from the input file and storing it in Influencer
+     * 
+     * @param influencerFile
+     *            the file name
+     * @return SLList contains a list of our data
+     * @throws FileNotFoundException
+     */
+    public SLList readInputFile(String influencerFile)
+        throws FileNotFoundException {
 
         SLList sll = new SLList();
 
         Scanner file = new Scanner(new File(influencerFile));
         while (file.hasNextLine()) {
-            
+
             String read = file.nextLine();
             Scanner line = new Scanner(read).useDelimiter(",\\s*");
             String[] tokens = new String[10];
@@ -31,18 +46,30 @@ public class FileReader {
                 tokens[tokenCount++] = line.next();
             }
             line.close();
-            
-            if (tokenCount == 10)
-            {
+
+            if (tokenCount == 10) {
                 int[] arr = new int[5];
+<<<<<<< Updated upstream
                 for (int i = 0; i < 5; i++)
                 {
                     arr[i] = Integer.valueOf(tokens[i + 5]);
                 }
                 
                 Influencer in = new Influencer(tokens[1], tokens[2], tokens[3], tokens[4], arr[0], arr[1], arr[2], arr[3], arr[4]);
+=======
+                for (int i = 0; i < 5; i++) {
+                    arr[i] = Integer.valueOf(tokens[i + 5]);
+                }
+
+                Influencer influ = new Influencer(tokens[1], tokens[2],
+                    tokens[3], tokens[4], arr[0], arr[1], arr[2], arr[3],
+                    arr[4]);
+                Data data = new Data(tokens[0], influ);
+                sll.add(data);
+>>>>>>> Stashed changes
             }
         }
+        return sll;
     }
 
 }

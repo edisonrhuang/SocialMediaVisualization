@@ -5,13 +5,20 @@ package prj5;
 // As a Hokie, I will conduct myself with honor and integrity at all times.
 // I will not lie, cheat, or steal, nor will I accept the actions of those who
 // do.
+// - Faith Jones (fejones20)
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class SLList implements Iterable<Influencer> {
+/**
+ * 
+ * @author Faith Jones (fejones20)
+ * @version 2023.04.18
+ *
+ */
+public class SLList implements Iterable<Data> {
 
-    private Node<Influencer> head;
+    private Node<Data> head;
     private int size;
 
     /**
@@ -32,16 +39,16 @@ public class SLList implements Iterable<Influencer> {
      * @throws IllegalArgumentException
      *             if obj is null
      */
-    public void add(Influencer obj) {
+    public void add(Data obj) {
         // check if the object is null
         if (obj == null) {
             throw new IllegalArgumentException("Object is null");
         }
 
-        Node<Influencer> current = head;
+        Node<Data> current = head;
         // empty stack case
         if (isEmpty()) {
-            head = new Node<Influencer>(obj);
+            head = new Node<Data>(obj);
         }
 
         // other cases
@@ -49,24 +56,24 @@ public class SLList implements Iterable<Influencer> {
             while (current.next != null) {
                 current = current.next;
             }
-            current.setNext(new Node<Influencer>(obj));
+            current.setNext(new Node<Data>(obj));
         }
         size++;
     }
-    
-    public void sortByName()
-    {
-        
+
+
+    public void sortByName() {
+
     }
-    
-    public void sortByTEngagement()
-    {
-        
+
+
+    public void sortByTEngagement() {
+
     }
-    
-    public void sortByREngagement()
-    {
-        
+
+
+    public void sortByREngagement() {
+
     }
 
 
@@ -165,8 +172,8 @@ public class SLList implements Iterable<Influencer> {
      * @param <T>
      *            the object type
      */
-    private class SLIterator implements Iterator<Influencer> {
-        private Node<Influencer> next;
+    private class SLIterator implements Iterator<Data> {
+        private Node<Data> next;
         private boolean calledNext;
 
         /**
@@ -193,10 +200,10 @@ public class SLList implements Iterable<Influencer> {
          * 
          * @return T the next data value
          */
-        public Influencer next() {
+        public Data next() {
             if (hasNext()) {
                 next = next.getNext();
-                Influencer data = next.getData();
+                Data data = next.getData();
                 calledNext = true;
                 return data;
             }
@@ -209,10 +216,10 @@ public class SLList implements Iterable<Influencer> {
     /**
      * new iterator
      * 
-     * @return Iterator<Influencer> iterator to iterate through influencers
+     * @return Iterator<Data> iterator to iterate through Datas
      */
     @Override
-    public Iterator<Influencer> iterator() {
+    public Iterator<Data> iterator() {
         return new SLIterator();
     }
 }

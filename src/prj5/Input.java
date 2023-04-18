@@ -1,5 +1,7 @@
 package prj5;
 
+import java.io.FileNotFoundException;
+
 // Virginia Tech Honor Code Pledge:
 //
 // As a Hokie, I will conduct myself with honor and integrity at all times.
@@ -28,8 +30,9 @@ public class Input {
      * 
      * @param args
      *            the String of arguements passed in
+     * @throws FileNotFoundException
      */
-    public void main(String[] args) {
+    public void main(String[] args) throws FileNotFoundException {
         if (args.length > 1) {
             FileReader fr = new FileReader(args[0]);
         }
