@@ -20,6 +20,13 @@ public class FileReader {
         list = readInputFile(influencerFileName);
     }
 
+    /**
+     * Default getter for the list field
+     * @return Returns the list field
+     */
+    public SLList[] getList() {
+        return list;
+    }
 
     /**
      * reading in data from the input file and storing it in Influencer
@@ -84,5 +91,4 @@ public class FileReader {
         SLList[] sl = { sllJan, sllFeb, sllMarch, sllAll };
         return sl;
     }
-
 }
