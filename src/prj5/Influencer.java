@@ -132,19 +132,18 @@ public class Influencer {
      * Calculates the traditional engagement and returns the calculated value
      * @return Returns the traditional engagement value.
      */
-    public int getTraditionalEngagement() {
-
-        return (int)(((this.getComments() + this.getLikes()) / 
-            (double)this.getFollowers()) * 100);
+    public double getTraditionalEngagement() {
+        return ((this.getComments() + this.getLikes()) / 
+            (double)this.getFollowers()) * 100;
     }
     
     /**
      * Calculates the engagement reach and returns the calculated value.
      * @return Returns the engagement reach value
      */
-    public int getEngagementReach() {
-        return (int)(((this.getComments() + this.getLikes()) / 
-            (double)this.getViews()) * 100);
+    public double getEngagementReach() {
+        return ((this.getComments() + this.getLikes()) / 
+            (double)this.getViews()) * 100;
     }
     
     /**
@@ -166,8 +165,8 @@ public class Influencer {
      * @return Returns -1 if this is smaller, 0 if equal, 1 if larger
      */
     public int compareByTEngagement(Influencer o) {
-        int thisEngagement = this.getTraditionalEngagement();
-        int otherEngagement = o.getTraditionalEngagement();
+        double thisEngagement = this.getTraditionalEngagement();
+        double otherEngagement = o.getTraditionalEngagement();
         if (thisEngagement < otherEngagement) { return -1; }
         else if (thisEngagement == otherEngagement) { return 0; }
         else { return 1; }
@@ -181,8 +180,8 @@ public class Influencer {
      * @return Returns -1 if this is smaller, 0 if equal, 1 if larger
      */
     public int compareByREngagement(Influencer o) {
-        int thisEngagement = this.getEngagementReach();
-        int otherEngagement = o.getEngagementReach();
+        double thisEngagement = this.getEngagementReach();
+        double otherEngagement = o.getEngagementReach();
         if (thisEngagement < otherEngagement) { return -1; }
         if (thisEngagement == otherEngagement) { return 0; }
         else { return 1; }
