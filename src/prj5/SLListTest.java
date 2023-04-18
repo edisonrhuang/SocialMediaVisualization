@@ -1,5 +1,6 @@
 package prj5;
 
+import java.util.Iterator;
 
 public class SLListTest extends student.TestCase 
 {
@@ -57,11 +58,11 @@ public class SLListTest extends student.TestCase
      */
     public void testSortByName()
     {
-        Influencer name1 = new Influencer("A", "channel", "usa",
+        Influencer name1 = new Influencer("A", "A", "usa",
             "robots", 10, 20, 2000, 10, 50); 
-        Influencer name2 = new Influencer("B", "channel", "usa",
+        Influencer name2 = new Influencer("B", "B", "usa",
             "robots", 10, 20, 2000, 10, 50); 
-        Influencer name3 = new Influencer("C", "channel", "usa",
+        Influencer name3 = new Influencer("C", "C", "usa",
             "robots", 10, 20, 2000, 10, 50); 
         Data data1 = new Data("January", name1); 
         Data data2 = new Data("Febuary", name2); 
@@ -72,11 +73,17 @@ public class SLListTest extends student.TestCase
         sl.add(data3);
         
         sl.sortByName(); 
-        Node<Data> pointer = sl.getHead(); 
+        Iterator<Data> it = sl.iterator();
         
-        
-        
-        
+        Data list1 = it.next(); 
+        System.out.println(list1.getInfluencer().getChannelName()); 
+        assertEquals("A", list1.getInfluencer().getChannelName()); 
+        Data list2 = it.next();
+        System.out.println(list2.getInfluencer().getChannelName()); 
+        assertEquals("B", list2.getInfluencer().getChannelName());  
+        Data list3 = it.next(); 
+        System.out.println(list3.getInfluencer().getChannelName()); 
+        assertEquals("C", list3.getInfluencer().getChannelName()); 
     }
     
     /***

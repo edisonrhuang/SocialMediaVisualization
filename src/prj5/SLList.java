@@ -77,20 +77,32 @@ public class SLList implements Iterable<Data> {
      */
     public void sortByName() {
         Node<Data> curr = head;
-        Node<Data> temp = head;
         Node<Data> currNext = head.next;
         while (curr != null) {
+            currNext = curr.next;
             while (currNext != null) {
                 if (curr.getData().getInfluencer().compareByChannel(currNext
-                    .getData().getInfluencer()) < 0) {
-                    temp = curr;
+                    .getData().getInfluencer()) > 0) {
+                    
+                    Data temp = curr.data;
+                    curr.data = currNext.data;
+                    currNext.data = temp;
                     curr = currNext;
-                    currNext = temp;
                 }
                 currNext = currNext.next;
             }
             curr = curr.next;
+            
         }
+        
+        /*
+        curr = head;
+        while (curr != null) {
+            System.out.print(curr.getData().getInfluencer().getChannelName());
+            curr = curr.next;
+        }
+        System.out.println("");
+        */
     }
 
 
@@ -218,7 +230,7 @@ public class SLList implements Iterable<Data> {
          * @return boolean true if yes false if not
          */
         public boolean hasNext() {
-            return (next.getNext() != null);
+            return (next != null);
         }
 
 
@@ -229,8 +241,8 @@ public class SLList implements Iterable<Data> {
          */
         public Data next() {
             if (hasNext()) {
-                next = next.getNext();
                 Data data = next.getData();
+                next = next.getNext();
                 calledNext = true;
                 return data;
             }
