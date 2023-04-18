@@ -8,7 +8,6 @@ package prj5;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import linkedlist.SinglyLinkedList.Node;
 
 public class SLList implements Iterable<Influencer> {
 
@@ -53,6 +52,21 @@ public class SLList implements Iterable<Influencer> {
             current.setNext(new Node<Influencer>(obj));
         }
         size++;
+    }
+    
+    public void sortByName()
+    {
+        
+    }
+    
+    public void sortByTEngagement()
+    {
+        
+    }
+    
+    public void sortByREngagement()
+    {
+        
     }
 
 
@@ -151,14 +165,14 @@ public class SLList implements Iterable<Influencer> {
      * @param <T>
      *            the object type
      */
-    private class DLIterator implements Iterator<Influencer> {
+    private class SLIterator implements Iterator<Influencer> {
         private Node<Influencer> next;
         private boolean calledNext;
 
         /**
          * create new iterator
          */
-        public DLIterator() {
+        public SLIterator() {
             next = head;
             calledNext = false;
         }
@@ -170,7 +184,7 @@ public class SLList implements Iterable<Influencer> {
          * @return boolean true if yes false if not
          */
         public boolean hasNext() {
-            return (next.getNext() != tail);
+            return (next.getNext() != null);
         }
 
 
@@ -199,6 +213,6 @@ public class SLList implements Iterable<Influencer> {
      */
     @Override
     public Iterator<Influencer> iterator() {
-        return new DLIterator();
+        return new SLIterator();
     }
 }
