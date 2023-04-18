@@ -107,33 +107,73 @@ public class SLListTest extends student.TestCase
     /***
      * Tests that sort by T engagement sorts 
      * the items correctly 
+     * (int)(((this.getComments() + this.getLikes()) / 
+            (double)this.getFollowers()) * 100);
+     * 
      */
     public void testSortByTEngagement()
     {
-        Influencer name1 = new Influencer("A", "A", "usa",
-            "robots", 10, 20, 2000, 10, 50); 
-        Influencer name2 = new Influencer("B", "B", "usa",
-            "robots", 10, 20, 2000, 10, 50); 
-        Influencer name3 = new Influencer("C", "C", "usa",
-            "robots", 10, 20, 2000, 10, 50); 
-        Data data1 = new Data("January", name1); 
-        Data data2 = new Data("Febuary", name2); 
-        Data data3 = new Data("March", name3); 
+        //username, channelname, country, topic, likes, posts
+        //followers , comments, views 
+        Influencer eng1 = new Influencer("A", "A", "usa",
+            "robots", 10, 20, 2000, 20, 50); 
+        Influencer eng2 = new Influencer("B", "B", "usa",
+            "robots", 10, 20, 3000, 30, 50); 
+        Influencer eng3 = new Influencer("C", "C", "usa",
+            "robots", 10, 20, 4000, 30, 50); 
+        Data data1 = new Data("January", eng1); 
+        Data data2 = new Data("Febuary", eng2); 
+        Data data3 = new Data("March", eng3); 
         
         sl.add(data2);
         sl.add(data1);
         sl.add(data3);
         
         sl.sortByTEngagement();
+        
+        Iterator<Data> it = sl.iterator();
+        Data list1 = it.next();
+        assertEquals("A", list1.getInfluencer().getChannelName()); 
+        Data list2 = it.next();
+        assertEquals("B", list2.getInfluencer().getChannelName()); 
+        Data list3 = it.next(); 
+        assertEquals("C", list3.getInfluencer().getChannelName());    
     }
     
     /***
      * Tests that sort by R engagement sorts 
      * the items correctly
+     * (int)(((this.getComments() + this.getLikes()) / 
+            (double)this.getViews()) * 100);
      */
     public void testSortByREngagement()
     {
-        //TODO
+        //username, channelname, country, topic, likes, posts
+        //followers , comments, views 
+        Influencer eng1 = new Influencer("A", "A", "usa",
+            "robots", 10, 20, 2000, 20, 100); 
+        Influencer eng2 = new Influencer("B", "B", "usa",
+            "robots", 10, 20, 3000, 30, 200); 
+        Influencer eng3 = new Influencer("C", "C", "usa",
+            "robots", 10, 20, 4000, 30, 300); 
+        
+        Data data1 = new Data("January", eng1); 
+        Data data2 = new Data("Febuary", eng2); 
+        Data data3 = new Data("March", eng3); 
+        
+        sl.add(data2);
+        sl.add(data1);
+        sl.add(data3);
+        
+        sl.sortByTEngagement();
+        
+        Iterator<Data> it = sl.iterator();
+        Data list1 = it.next();
+        assertEquals("A", list1.getInfluencer().getChannelName()); 
+        Data list2 = it.next();
+        assertEquals("B", list2.getInfluencer().getChannelName()); 
+        Data list3 = it.next(); 
+        assertEquals("C", list3.getInfluencer().getChannelName());   
     }
     
     /***
