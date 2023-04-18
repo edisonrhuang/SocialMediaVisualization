@@ -1,7 +1,13 @@
 package prj5;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
+/***
+ * 
+ * @author ayeshakabduwal
+ * @version 1.0 
+ */
 public class SLListTest extends student.TestCase 
 {
     private SLList sl;
@@ -27,7 +33,7 @@ public class SLListTest extends student.TestCase
      * singly linked list and ensures that size 
      * updates appropriately 
      */
-    private void testAddAndSize() 
+    private void testAdd() 
     {
         //null object 
         Exception exception = null;
@@ -51,6 +57,17 @@ public class SLListTest extends student.TestCase
         Data data2 = new Data("Febuary", influ2); 
         sl.add(data2);
         assertEquals(sl.size(), 2); 
+    }
+    
+    /***
+     * asserts that the size variable 
+     * updates correctly 
+     */
+    public void testSize()
+    {
+        assertEquals(sl.size(), 0); 
+        sl.add(data1);
+        assertEquals(sl.size(), 1); 
     }
     
     /***
@@ -86,22 +103,28 @@ public class SLListTest extends student.TestCase
         assertEquals("C", list3.getInfluencer().getChannelName()); 
     }
     
-    /***
-     * Tests that sort by engagement 
-     * sorts by the correct engagement 
-     */
-    public void testSortByEngagement()
-    {
-        //TODO
-    }
-    
+   
     /***
      * Tests that sort by T engagement sorts 
      * the items correctly 
      */
     public void testSortByTEngagement()
     {
-        //TODO
+        Influencer name1 = new Influencer("A", "A", "usa",
+            "robots", 10, 20, 2000, 10, 50); 
+        Influencer name2 = new Influencer("B", "B", "usa",
+            "robots", 10, 20, 2000, 10, 50); 
+        Influencer name3 = new Influencer("C", "C", "usa",
+            "robots", 10, 20, 2000, 10, 50); 
+        Data data1 = new Data("January", name1); 
+        Data data2 = new Data("Febuary", name2); 
+        Data data3 = new Data("March", name3); 
+        
+        sl.add(data2);
+        sl.add(data1);
+        sl.add(data3);
+        
+        sl.sortByTEngagement();
     }
     
     /***
@@ -124,7 +147,32 @@ public class SLListTest extends student.TestCase
         assertFalse(sl.isEmpty()); 
     }
     
-    
-    
+    /***
+     * Tests that the iterator functions 
+     * correctly 
+     */
+    public void testIterator()
+    {
+        sl.add(data1);
+        sl.add(data1);
+        sl.add(data1);
+        Iterator<Data> iter = sl.iterator(); 
+        assertEquals(data1, iter.next()); 
+        assertEquals(data1, iter.next()); 
+        assertEquals(data1, iter.next()); 
+        
+        assertFalse(iter.hasNext()); 
+        Exception nullExcep = null;
+        try 
+        {
+            iter.next(); 
+        }
+        catch (NoSuchElementException e)
+        {
+            nullExcep = e; 
+        }
+        assertNotNull(nullExcep);   
+    }
+      
 
 }
