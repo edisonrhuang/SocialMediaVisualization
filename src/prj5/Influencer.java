@@ -134,4 +134,10 @@ public class Influencer {
     public int getEngagementReach() {
         return ((this.getComments() + this.getLikes()) / this.getViews()) * 100;
     }
+    
+    
+    public String toString() {
+        return "Username: " + this.getUsername() + " Topics: " + 
+    this.getTopics();
+    }
 }
