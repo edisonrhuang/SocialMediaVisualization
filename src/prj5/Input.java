@@ -32,12 +32,14 @@ public class Input {
      *            the String of arguements passed in
      * @throws FileNotFoundException
      */
-    public void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException {
         if (args.length > 1) {
             FileReader fr = new FileReader(args[0]);
+            SLList[] list = fr.getList();
         }
         else {
             FileReader fr = new FileReader("SampleInput1_2022.csv");
+            SLList[] list = fr.getList();
         }
     }
 
