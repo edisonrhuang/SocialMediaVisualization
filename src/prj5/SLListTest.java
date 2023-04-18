@@ -72,7 +72,7 @@ public class SLListTest extends student.TestCase
         sl.add(data1);
         sl.add(data3);
         
-        sl.sortByName(); 
+        sl.sortByName();
         Iterator<Data> it = sl.iterator();
         
         Data list1 = it.next(); 
