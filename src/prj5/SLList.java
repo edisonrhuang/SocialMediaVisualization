@@ -73,7 +73,9 @@ public class SLList implements Iterable<Data> {
 
 
     /**
-     * sort by the name placing them alphabetically in the list A-Z
+     * sort by the name placing them alphabetically in the list A-Z. compares
+     * curr node to next node and swaps/stays still accordingly traversing
+     * through whole list
      */
     public void sortByName() {
         Node<Data> curr = head;
@@ -108,7 +110,8 @@ public class SLList implements Iterable<Data> {
 
     /**
      * sort by traditional engagement rate, placing the highest engagement first
-     * and the the lowest last in the list
+     * and the the lowest last in the list. compares curr node to next node and
+     * swaps their data accordingly
      */
     public void sortByTEngagement() {
         Node<Data> curr = head;
@@ -133,7 +136,8 @@ public class SLList implements Iterable<Data> {
 
     /**
      * sort by engagement rate reach, placing the highest engagement rate at
-     * the front of the list and lowest at the end
+     * the front of the list and lowest at the end. compares curr node to next
+     * node and swaps data accordingly
      */
     public void sortByREngagement() {
         Node<Data> curr = head;
