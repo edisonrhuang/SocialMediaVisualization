@@ -33,7 +33,7 @@ public class SLListTest extends student.TestCase {
      * updates appropriately
      */
 
-    private void testAdd() {
+    public void testAdd() {
 
         // null object
         Exception exception = null;
