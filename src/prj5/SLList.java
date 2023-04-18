@@ -73,9 +73,13 @@ public class SLList implements Iterable<Data> {
 
 
     /**
+     * 
      * sort by the name placing them alphabetically in the list A-Z. compares
      * curr node to next node and swaps/stays still accordingly traversing
      * through whole list
+     * 
+     * sort by the name in alphabetical order
+     * 
      */
     public void sortByName() {
         Node<Data> curr = head;
@@ -130,6 +134,7 @@ public class SLList implements Iterable<Data> {
                 currNext = currNext.next;
             }
             curr = curr.next;
+            currNext = curr.next;
         }
     }
 
@@ -274,6 +279,7 @@ public class SLList implements Iterable<Data> {
          * @return boolean true if yes false if not
          */
         public boolean hasNext() {
+
             return (next != null);
         }
 

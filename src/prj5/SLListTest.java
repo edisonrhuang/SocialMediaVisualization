@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
  * @author ayeshakabduwal
  * @version 1.0
  */
+
 public class SLListTest extends student.TestCase {
     private SLList sl;
     private Data data1;
@@ -31,7 +32,9 @@ public class SLListTest extends student.TestCase {
      * singly linked list and ensures that size
      * updates appropriately
      */
+
     private void testAdd() {
+
         // null object
         Exception exception = null;
         try {
@@ -76,6 +79,7 @@ public class SLListTest extends student.TestCase {
             2000, 10, 50);
         Influencer name3 = new Influencer("C", "C", "usa", "robots", 10, 20,
             2000, 10, 50);
+
         Data data1 = new Data("January", name1);
         Data data2 = new Data("Febuary", name2);
         Data data3 = new Data("March", name3);
@@ -96,10 +100,14 @@ public class SLListTest extends student.TestCase {
         Data list3 = it.next();
         System.out.println(list3.getInfluencer().getChannelName());
         assertEquals("C", list3.getInfluencer().getChannelName());
+
+        // Node<Data> pointer = sl.getHead();
+
     }
 
 
     /***
+     * 
      * Tests that sort by T engagement sorts
      * the items correctly
      * (int)(((this.getComments() + this.getLikes()) /
@@ -107,6 +115,7 @@ public class SLListTest extends student.TestCase {
      * 
      */
     public void testSortByTEngagement() {
+
         // username, channelname, country, topic, likes, posts
         // followers , comments, views
         Influencer eng1 = new Influencer("A", "A", "usa", "robots", 10, 20,
@@ -132,6 +141,7 @@ public class SLListTest extends student.TestCase {
         assertEquals("B", list2.getInfluencer().getChannelName());
         Data list3 = it.next();
         assertEquals("C", list3.getInfluencer().getChannelName());
+
     }
 
 
@@ -179,6 +189,7 @@ public class SLListTest extends student.TestCase {
         assertTrue(sl.isEmpty());
         sl.add(data1);
         assertFalse(sl.isEmpty());
+
     }
 
 
@@ -204,6 +215,7 @@ public class SLListTest extends student.TestCase {
             nullExcep = e;
         }
         assertNotNull(nullExcep);
+
     }
 
 }
