@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class FileReader {
 
-    private SLList list;
+    private SLList[] list;
 
     /**
      * the FileReader Constructor
@@ -29,10 +29,13 @@ public class FileReader {
      * @return SLList contains a list of our data
      * @throws FileNotFoundException
      */
-    public SLList readInputFile(String influencerFile)
+    public SLList[] readInputFile(String influencerFile)
         throws FileNotFoundException {
 
-        SLList sll = new SLList();
+        SLList sllJan = new SLList();
+        SLList sllFeb = new SLList();
+        SLList sllMarch = new SLList();
+        SLList sllAll = new SLList();
 
         Scanner file = new Scanner(new File(influencerFile));
         while (file.hasNextLine()) {
@@ -49,14 +52,14 @@ public class FileReader {
 
             if (tokenCount == 10) {
                 int[] arr = new int[5];
-<<<<<<< Updated upstream
-                for (int i = 0; i < 5; i++)
-                {
+
+                for (int i = 0; i < 5; i++) {
                     arr[i] = Integer.valueOf(tokens[i + 5]);
                 }
-                
-                Influencer in = new Influencer(tokens[1], tokens[2], tokens[3], tokens[4], arr[0], arr[1], arr[2], arr[3], arr[4]);
-=======
+
+                Influencer in = new Influencer(tokens[1], tokens[2], tokens[3],
+                    tokens[4], arr[0], arr[1], arr[2], arr[3], arr[4]);
+
                 for (int i = 0; i < 5; i++) {
                     arr[i] = Integer.valueOf(tokens[i + 5]);
                 }
@@ -65,11 +68,21 @@ public class FileReader {
                     tokens[3], tokens[4], arr[0], arr[1], arr[2], arr[3],
                     arr[4]);
                 Data data = new Data(tokens[0], influ);
-                sll.add(data);
->>>>>>> Stashed changes
+                sllAll.add(data);
+
+                if (tokens[0].equals("January")) {
+                    sllJan.add(data);
+                }
+                if (tokens[0].equals("Feburary")) {
+                    sllFeb.add(data);
+                }
+                if (tokens[0].equals("March")) {
+                    sllMarch.add(data);
+                }
             }
         }
-        return sll;
+        SLList[] sl = { sllJan, sllFeb, sllMarch, sllAll };
+        return sl;
     }
 
 }

@@ -31,6 +31,16 @@ public class SLList implements Iterable<Data> {
 
 
     /**
+     * returns the head
+     * 
+     * @return Node<Data> the front node
+     */
+    public Node<Data> getHead() {
+        return head;
+    }
+
+
+    /**
      * Adds the object to the end of the list.
      *
      * @precondition obj cannot be null
@@ -62,8 +72,25 @@ public class SLList implements Iterable<Data> {
     }
 
 
+    /**
+     * sort by the name
+     */
     public void sortByName() {
-
+        Node<Data> curr = head;
+        Node<Data> temp = head;
+        Node<Data> currNext = head.next;
+        while (curr != null) {
+            while (currNext != null) {
+                if (curr.getData().getInfluencer().compareByChannel(currNext
+                    .getData().getInfluencer()) < 0) {
+                    temp = curr;
+                    curr = currNext;
+                    currNext = temp;
+                }
+                currNext = currNext.next;
+            }
+            curr = curr.next;
+        }
     }
 
 
