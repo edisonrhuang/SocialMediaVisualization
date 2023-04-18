@@ -73,7 +73,7 @@ public class SLList implements Iterable<Data> {
 
 
     /**
-     * sort by the name
+     * sort by the name placing them alphabetically in the list A-Z
      */
     public void sortByName() {
         Node<Data> curr = head;
@@ -83,7 +83,7 @@ public class SLList implements Iterable<Data> {
             while (currNext != null) {
                 if (curr.getData().getInfluencer().compareByChannel(currNext
                     .getData().getInfluencer()) > 0) {
-                    
+
                     Data temp = curr.data;
                     curr.data = currNext.data;
                     currNext.data = temp;
@@ -92,27 +92,67 @@ public class SLList implements Iterable<Data> {
                 currNext = currNext.next;
             }
             curr = curr.next;
-            
+
         }
-        
+
         /*
-        curr = head;
+         * curr = head;
+         * while (curr != null) {
+         * System.out.print(curr.getData().getInfluencer().getChannelName());
+         * curr = curr.next;
+         * }
+         * System.out.println("");
+         */
+    }
+
+
+    /**
+     * sort by traditional engagement rate, placing the highest engagement first
+     * and the the lowest last in the list
+     */
+    public void sortByTEngagement() {
+        Node<Data> curr = head;
+        Node<Data> currNext = head.next;
         while (curr != null) {
-            System.out.print(curr.getData().getInfluencer().getChannelName());
+            currNext = curr.next;
+            while (currNext != null) {
+                if (curr.getData().getInfluencer().compareByTEngagement(currNext
+                    .getData().getInfluencer()) < 0) {
+
+                    Data temp = curr.data;
+                    curr.data = currNext.data;
+                    currNext.data = temp;
+                    curr = currNext;
+                }
+                currNext = currNext.next;
+            }
             curr = curr.next;
         }
-        System.out.println("");
-        */
     }
 
 
-    public void sortByTEngagement() {
-
-    }
-
-
+    /**
+     * sort by engagement rate reach, placing the highest engagement rate at
+     * the front of the list and lowest at the end
+     */
     public void sortByREngagement() {
+        Node<Data> curr = head;
+        Node<Data> currNext = head.next;
+        while (curr != null) {
+            currNext = curr.next;
+            while (currNext != null) {
+                if (curr.getData().getInfluencer().compareByREngagement(currNext
+                    .getData().getInfluencer()) < 0) {
 
+                    Data temp = curr.data;
+                    curr.data = currNext.data;
+                    currNext.data = temp;
+                    curr = currNext;
+                }
+                currNext = currNext.next;
+            }
+            curr = curr.next;
+        }
     }
 
 

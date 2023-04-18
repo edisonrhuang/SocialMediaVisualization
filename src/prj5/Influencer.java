@@ -132,7 +132,7 @@ public class Influencer {
      * Calculates the traditional engagement and returns the calculated value
      * @return Returns the traditional engagement value.
      */
-    public int getTraditionalEngagement() {
+    public double getTraditionalEngagement() {
 
         return (int)(((this.getComments() + this.getLikes()) / 
             (double)this.getFollowers()) * 100);
