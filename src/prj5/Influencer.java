@@ -1,5 +1,15 @@
+// Virginia Tech Honor Code Pledge:
+//
+// As a Hokie, I will conduct myself with honor and integrity at all times.
+// I will not lie, cheat, or steal, nor will I accept the actions of those who
+// do.
 package prj5;
 
+/**
+ * @author Edison Huang
+ * @version 4.18.2023
+ *
+ */
 public class Influencer {
 
     // Fields ------------------------------------------------------------------
@@ -135,9 +145,49 @@ public class Influencer {
         return ((this.getComments() + this.getLikes()) / this.getViews()) * 100;
     }
     
-    
     public String toString() {
         return "Username: " + this.getUsername() + " Topics: " + 
-    this.getTopics();
+            this.getTopics();
+    }
+    
+    /**
+     * Given another influencer object, compares the two by channel name and if
+     * this influencer is smaller, returns -1, if they are equal, returns 0, and
+     * if the this influencer is larger, returns 1
+     * @param o Other influencer object to be compared to
+     * @return Returns -1 if this is smaller, 0 if equal, 1 if larger
+     */
+    public int compareByChannel(Influencer o) {
+        return this.getChannelName().compareTo(o.getChannelName());
+    }
+    
+    /**
+     * Given another influencer object, compares the two by their
+     * TraditionalEngagement formula. If this influencer is smaller, returns -1,
+     * if they are equal, returns 0, and if this influencer is larger, returns 1
+     * @param o Other influencer object to be compared to
+     * @return Returns -1 if this is smaller, 0 if equal, 1 if larger
+     */
+    public int compareByTEngagement(Influencer o) {
+        int thisEngagement = this.getTraditionalEngagement();
+        int otherEngagement = o.getTraditionalEngagement();
+        if (thisEngagement < otherEngagement) { return -1; }
+        else if (thisEngagement == otherEngagement) { return 0; }
+        else { return 1; }
+    }
+    
+    /**
+     * Given another influencer object, compares the two by their 
+     * EngagementReach formula. If this influencer is smaller, returns -1, if
+     * they are equal, returns 0, and if this influencer is larger, returns 1
+     * @param o Other influencer object to be compared to
+     * @return Returns -1 if this is smaller, 0 if equal, 1 if larger
+     */
+    public int compareByREngagement(Influencer o) {
+        int thisEngagement = this.getEngagementReach();
+        int otherEngagement = o.getTraditionalEngagement();
+        if (thisEngagement < otherEngagement) { return -1; }
+        if (thisEngagement == otherEngagement) { return 0; }
+        else { return 1; }
     }
 }
