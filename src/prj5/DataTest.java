@@ -41,7 +41,9 @@ public class DataTest {
         data = null;
     }
 
-
+    /**
+     * Tests getters
+     */
     @Test
     public void testGetters() {
         assertEquals("January", data.getMonth());

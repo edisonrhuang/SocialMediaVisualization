@@ -132,9 +132,10 @@ public class Influencer {
      * Calculates the traditional engagement and returns the calculated value
      * @return Returns the traditional engagement value.
      */
-    public int getTraditionalEngagement() {        
-        return ((this.getComments() + this.getLikes()) / this.getFollowers()) 
-            * 100;
+    public int getTraditionalEngagement() {
+
+        return (int)(((this.getComments() + this.getLikes()) / 
+            (double)this.getFollowers()) * 100);
     }
     
     /**
@@ -142,12 +143,8 @@ public class Influencer {
      * @return Returns the engagement reach value
      */
     public int getEngagementReach() {
-        return ((this.getComments() + this.getLikes()) / this.getViews()) * 100;
-    }
-    
-    public String toString() {
-        return "Username: " + this.getUsername() + " Topics: " + 
-            this.getTopics();
+        return (int)(((this.getComments() + this.getLikes()) / 
+            (double)this.getViews()) * 100);
     }
     
     /**
@@ -185,7 +182,7 @@ public class Influencer {
      */
     public int compareByREngagement(Influencer o) {
         int thisEngagement = this.getEngagementReach();
-        int otherEngagement = o.getTraditionalEngagement();
+        int otherEngagement = o.getEngagementReach();
         if (thisEngagement < otherEngagement) { return -1; }
         if (thisEngagement == otherEngagement) { return 0; }
         else { return 1; }
