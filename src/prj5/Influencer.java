@@ -133,6 +133,7 @@ public class Influencer {
      * @return Returns the traditional engagement value.
      */
     public double getTraditionalEngagement() {
+        if (this.getFollowers() == 0) { return 0.0; }
         return ((this.getComments() + this.getLikes()) / 
             (double)this.getFollowers()) * 100;
     }
@@ -142,6 +143,7 @@ public class Influencer {
      * @return Returns the engagement reach value
      */
     public double getEngagementReach() {
+        if (this.getViews() == 0) { return 0.0; }
         return ((this.getComments() + this.getLikes()) / 
             (double)this.getViews()) * 100;
     }
