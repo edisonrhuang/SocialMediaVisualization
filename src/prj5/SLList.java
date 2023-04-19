@@ -134,7 +134,6 @@ public class SLList implements Iterable<Data> {
                 currNext = currNext.next;
             }
             curr = curr.next;
-            currNext = curr.next;
         }
     }
 
