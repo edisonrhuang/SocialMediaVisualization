@@ -44,11 +44,9 @@ public class Input {
             list = fr.getList();
         }
 
-        
-        
+        list[0].sortByName();
         list[1].sortByName();
         list[2].sortByName();
-        list[3].sortByName();
         
         System.out.println(list[1].get(0).getInfluencer().getChannelName());
         System.out.println(list[1].get(1).getInfluencer().getChannelName());
