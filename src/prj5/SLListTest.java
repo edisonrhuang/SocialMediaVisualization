@@ -14,7 +14,6 @@ public class SLListTest extends student.TestCase {
     private SLList sl2;
     private Data data1;
     private Data data2;
-    private Influencer influ1;
 
     /***
      * setup method creates a new
@@ -24,7 +23,7 @@ public class SLListTest extends student.TestCase {
     public void setUp() {
         sl = new SLList();
         sl2 = new SLList();
-        influ1 = new Influencer("test", "channel", "usa", "robots", 10, 20,
+        Influencer influ1 = new Influencer("test", "channel", "usa", "robots", 10, 20,
             2000, 10, 50);
         data1 = new Data("January", influ1);
         data2 = new Data("March", influ1);
@@ -104,17 +103,17 @@ public class SLListTest extends student.TestCase {
         Influencer name3 = new Influencer("C", "C", "usa", "robots", 10, 20,
             2000, 10, 50);
 
-        Data data1 = new Data("January", name1);
-        Data data2 = new Data("Febuary", name2);
-        Data data3 = new Data("March", name3);
+        Data data5 = new Data("January", name1);
+        Data data6 = new Data("Febuary", name2);
+        Data data7 = new Data("March", name3);
 
         // test list size is greater than 1
-        sl2.add(data1);
+        sl2.add(data5);
         sl2.sortByName();
 
-        sl.add(data2);
-        sl.add(data1);
-        sl.add(data3);
+        sl.add(data6);
+        sl.add(data5);
+        sl.add(data7);
 
         sl.sortByName();
         Iterator<Data> it = sl.iterator();
@@ -152,17 +151,17 @@ public class SLListTest extends student.TestCase {
             3000, 30, 50);
         Influencer eng3 = new Influencer("C", "C", "usa", "robots", 10, 20,
             4000, 30, 50);
-        Data data1 = new Data("January", eng1);
-        Data data2 = new Data("Febuary", eng2);
-        Data data3 = new Data("March", eng3);
+        Data data5 = new Data("January", eng1);
+        Data data6 = new Data("Febuary", eng2);
+        Data data7 = new Data("March", eng3);
 
         // test that list size is greater than one
-        sl2.add(data1);
+        sl2.add(data5);
         sl2.sortByTEngagement();
 
-        sl.add(data2);
-        sl.add(data1);
-        sl.add(data3);
+        sl.add(data6);
+        sl.add(data5);
+        sl.add(data7);
 
         sl.sortByTEngagement();
 
@@ -193,17 +192,17 @@ public class SLListTest extends student.TestCase {
         Influencer eng3 = new Influencer("C", "C", "usa", "robots", 10, 20,
             4000, 30, 300);
 
-        Data data1 = new Data("January", eng1);
-        Data data2 = new Data("Febuary", eng2);
-        Data data3 = new Data("March", eng3);
+        Data data5 = new Data("January", eng1);
+        Data data6 = new Data("Febuary", eng2);
+        Data data7 = new Data("March", eng3);
 
         // test that list size is greater than one
-        sl2.add(data1);
+        sl2.add(data5);
         sl2.sortByREngagement();
         
-        sl.add(data2);
-        sl.add(data1);
-        sl.add(data3);
+        sl.add(data6);
+        sl.add(data5);
+        sl.add(data7);
 
         sl.sortByREngagement();
 

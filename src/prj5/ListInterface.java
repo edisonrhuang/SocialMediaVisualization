@@ -2,7 +2,8 @@ package prj5;
 
 /**
  * @author Edison Huang
- *
+ * @version 1.0 
+ * @param <T> type
  */
 public interface ListInterface<T> {
     /**

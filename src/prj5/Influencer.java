@@ -42,7 +42,7 @@ public class Influencer {
      * @param comments Number of comments
      * @param views Number of views
      */
-    public Influencer (String username, String channelName, String country, 
+    public Influencer(String username, String channelName, String country, 
         String topics, int likes, int posts, int followers, int comments, 
         int views) {
         
@@ -137,11 +137,16 @@ public class Influencer {
      * Calculates the traditional engagement and returns the calculated value
      * @return Returns the traditional engagement value.
      */
-    public double getTraditionalEngagement() {
-        if (traditionalRate != 0) { return traditionalRate; }
-        if (this.getFollowers() == 0) { return 0.0; }
-        return ((this.getComments() + this.getLikes()) / 
-            (double)this.getFollowers()) * 100;
+    public double getTraditionalEngagement() 
+    {
+        if (traditionalRate != 0) {
+            return traditionalRate;
+        }
+        if (this.getFollowers() == 0) {
+            return 0.0;
+        }
+        return ((this.getComments() + this.getLikes()) / (double)this
+            .getFollowers()) * 100;
     }
     
     /**
@@ -149,10 +154,14 @@ public class Influencer {
      * @return Returns the engagement reach value
      */
     public double getEngagementReach() {
-        if (engagementRate != 0) { return engagementRate; }
-        if (this.getViews() == 0) { return 0.0; }
-        return ((this.getComments() + this.getLikes()) / 
-            (double)this.getViews()) * 100;
+        if (engagementRate != 0) {
+            return engagementRate;
+        }
+        if (this.getViews() == 0) {
+            return 0.0;
+        }
+        return ((this.getComments() + this.getLikes()) / (double)this
+            .getViews()) * 100;
     }
     
     /**
@@ -194,9 +203,15 @@ public class Influencer {
     public int compareByTEngagement(Influencer o) {
         double thisEngagement = this.getTraditionalEngagement();
         double otherEngagement = o.getTraditionalEngagement();
-        if (thisEngagement < otherEngagement) { return -1; }
-        else if (thisEngagement == otherEngagement) { return 0; }
-        else { return 1; }
+        if (thisEngagement < otherEngagement) {
+            return -1;
+        }
+        else if (thisEngagement == otherEngagement) {
+            return 0;
+        }
+        else {
+            return 1;
+        }
     }
     
     /**
@@ -209,9 +224,15 @@ public class Influencer {
     public int compareByREngagement(Influencer o) {
         double thisEngagement = this.getEngagementReach();
         double otherEngagement = o.getEngagementReach();
-        if (thisEngagement < otherEngagement) { return -1; }
-        if (thisEngagement == otherEngagement) { return 0; }
-        else { return 1; }
+        if (thisEngagement < otherEngagement) {
+            return -1;
+        }
+        if (thisEngagement == otherEngagement) {
+            return 0;
+        }
+        else {
+            return 1;
+        }
     }
     
     /*
