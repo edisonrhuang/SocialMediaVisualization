@@ -2,6 +2,7 @@ package prj5;
 
 import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 // Virginia Tech Honor Code Pledge:
 //
@@ -82,6 +83,7 @@ public class Input {
                 System.out.println(df.format(traditional));
             }
             System.out.print("\n");
+
             // System.out.println("==========\n"+ "");
 
         }
@@ -96,15 +98,16 @@ public class Input {
         // Second, your code must output the influencer summaries
         // for the first quarter, sorted in descending order
         // by reach engagement rate.
-        list[0].sortByREngagement();
-        list[1].sortByREngagement();
-        list[2].sortByREngagement();
+        //list[0].sortByREngagement();
+        //list[1].sortByREngagement();
+        //list[2].sortByREngagement();
 
         
         System.out.print("\n");
         System.out.print("\n");
+
+        Rates[] engagementRates = new Rates[list[2].size()];
         for (int x = 0; x < list[2].size(); x++) {
-            System.out.println(list[2].get(x).getInfluencer().getChannelName());
             int janLikes = list[0].get(x).getInfluencer().getLikes();
             int febLikes = list[1].get(x).getInfluencer().getLikes();
             int marLikes = list[2].get(x).getInfluencer().getLikes();
@@ -129,6 +132,10 @@ public class Input {
                 reach = ((likes + comments) / (double)views) * 100;
             }
             
+            engagementRates[x] = new Rates(list[2].get(x).getInfluencer()
+                .getChannelName(), reach);
+            
+            /*
             System.out.print("reach: ");
             if (reach == 0) {
                 System.out.println("N/A");
@@ -138,10 +145,22 @@ public class Input {
             }
             //System.out.println("==========\n" + "");
             System.out.print("\n");
-
+            */
         }
-        System.out.print("\n");
-        System.out.print("\n");
+        
+        Arrays.sort(engagementRates);
+        for (int i = engagementRates.length - 1; i >= 0; i--) {
+            System.out.println(engagementRates[i].getName());
+            System.out.print("reach: ");
+            if (engagementRates[i].getRate() == 0) {
+                System.out.println("N/A");
+            } 
+            else {
+                System.out.println(df.format(engagementRates[i].getRate()));
+            }
+            //System.out.println("==========\n" + "");
+            System.out.print("\n");
+        }
 
     }
 }

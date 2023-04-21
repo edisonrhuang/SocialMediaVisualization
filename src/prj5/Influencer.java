@@ -193,12 +193,12 @@ public class Influencer {
         else { return 1; }
     }
     
-    /*
+
     public String toString() {
         return "Channel Name: " + this.getChannelName() + "\nLikes: " + 
         this.getLikes() + "\nPosts: " + this.getPosts() + "\nFollowers" + 
         this.getFollowers() + "\nComments:" + this.getComments() + "\nViews:" + 
         this.getViews();
     }
-    */
+
 }
