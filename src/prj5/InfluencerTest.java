@@ -59,8 +59,18 @@ public class InfluencerTest {
         assertEquals(518, influencer1.getComments());
         assertEquals(170095, influencer1.getViews());
 
-        //assertEquals(491, influencer1.getTraditionalEngagement());
-        //assertEquals(13,449, influencer1.getEngagementReach());
+        influencer1 = new Influencer("aafootball", "allaboutfootball", "ES", 
+            "Sports", 22876452, 333, 0, 518, 0);
+        
+        assertEquals(0.0, influencer1.getTraditionalEngagement(), 0.0);
+        assertEquals(0.0, influencer1.getEngagementReach(), 0.0);
+
+        
+        influencer1.setEngagementRate(1.0);
+        influencer1.setTraditionalRate(1.0);
+        
+        assertEquals(1.0, influencer1.getTraditionalEngagement(), 0.0);
+        assertEquals(1.0 , influencer1.getEngagementReach(), 0.0);
     }
 
     /**
@@ -68,6 +78,7 @@ public class InfluencerTest {
      */
     @Test
     public void testCompares() {
+        //System.out.println(influencer1.compareByChannel(influencer2) < 0);
         assertTrue(influencer1.compareByChannel(influencer2) < 0);
         assertEquals(0, influencer1.compareByChannel(influencer1));
         assertTrue(influencer2.compareByChannel(influencer1) > 0);

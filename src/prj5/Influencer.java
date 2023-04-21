@@ -180,8 +180,8 @@ public class Influencer {
      */
     public int compareByChannel(Influencer o) {
         String s = o.getChannelName(); 
-        s.toUpperCase(); 
-        String currName = channelName.toUpperCase(); 
+        s.toLowerCase(); 
+        String currName = channelName.toLowerCase(); 
         return currName.compareTo(s);
     }
     
@@ -215,12 +215,13 @@ public class Influencer {
         else { return 1; }
     }
     
-
+    /*
     public String toString() {
         return "Channel Name: " + this.getChannelName() + "\nLikes: " + 
         this.getLikes() + "\nPosts: " + this.getPosts() + "\nFollowers" + 
         this.getFollowers() + "\nComments:" + this.getComments() + "\nViews:" + 
         this.getViews();
     }
+    */
 
 }
