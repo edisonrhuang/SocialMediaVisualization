@@ -93,6 +93,36 @@ public class SLList implements Iterable<Data> {
         size++;
     }
 
+    /*
+     * public void sort() {
+     * Node<Data> curr = head;
+     * Node<Data> currNext = head.next;
+     * while (curr != null) {
+     * currNext = curr.next;
+     * while (currNext != null) {
+     * if (curr.getData().getInfluencer().compareByChannel(currNext
+     * .getData().getInfluencer()) > 0) {
+     * 
+     * Data temp = curr.data;
+     * curr.data = currNext.data;
+     * currNext.data = temp;
+     * curr = currNext;
+     * }
+     * currNext = currNext.next;
+     * }
+     * curr = curr.next;
+     * 
+     * }
+     */
+    /*
+     * curr = head;
+     * while (curr != null) {
+     * System.out.print(curr.getData().getInfluencer().getChannelName());
+     * curr = curr.next;
+     * }
+     * System.out.println("");
+     */
+
 
     /**
      * 
@@ -103,37 +133,6 @@ public class SLList implements Iterable<Data> {
      * sort by the name in alphabetical order
      * 
      */
-    public void sort() {
-        Node<Data> curr = head;
-        Node<Data> currNext = head.next;
-        while (curr != null) {
-            currNext = curr.next;
-            while (currNext != null) {
-                if (curr.getData().getInfluencer().compareByChannel(currNext
-                    .getData().getInfluencer()) > 0) {
-
-                    Data temp = curr.data;
-                    curr.data = currNext.data;
-                    currNext.data = temp;
-                    curr = currNext;
-                }
-                currNext = currNext.next;
-            }
-            curr = curr.next;
-
-        }
-
-        /*
-         * curr = head;
-         * while (curr != null) {
-         * System.out.print(curr.getData().getInfluencer().getChannelName());
-         * curr = curr.next;
-         * }
-         * System.out.println("");
-         */
-    }
-
-
     public void sortByName() {
         Node<Data> insert = null;
 
@@ -145,7 +144,7 @@ public class SLList implements Iterable<Data> {
             while (unsorted != null) {
                 insert = unsorted;
                 unsorted = unsorted.getNext();
-                
+
                 Data data = insert.getData();
                 Node<Data> curr = head;
                 Node<Data> prev = null;
@@ -177,23 +176,39 @@ public class SLList implements Iterable<Data> {
      * swaps their data accordingly
      */
     public void sortByTEngagement() {
-        Node<Data> curr = head;
-        Node<Data> currNext = head.next;
-        while (curr != null) {
-            currNext = curr.next;
-            while (currNext != null) {
-                if (curr.getData().getInfluencer().compareByTEngagement(currNext
-                    .getData().getInfluencer()) < 0) {
+        Node<Data> insert = null;
 
-                    Data temp = curr.data;
-                    curr.data = currNext.data;
-                    currNext.data = temp;
-                    curr = currNext;
+        if (this.size > 1) {
+            Node<Data> unsorted = head.next;
+            Node<Data> sorted = head;
+            sorted.setNext(null);
+
+            while (unsorted != null) {
+                insert = unsorted;
+                unsorted = unsorted.getNext();
+
+                Data data = insert.getData();
+                Node<Data> curr = head;
+                Node<Data> prev = null;
+
+                while (curr != null && data.getInfluencer()
+                    .compareByTEngagement(curr.getData().getInfluencer()) < 0) {
+                    prev = curr;
+                    curr = curr.getNext();
                 }
-                currNext = currNext.next;
+
+                if (prev != null) {
+                    prev.setNext(insert);
+                    insert.setNext(curr);
+                }
+                else {
+                    insert.setNext(head);
+                    head = insert;
+                }
+
             }
-            curr = curr.next;
         }
+
     }
 
 
@@ -203,23 +218,39 @@ public class SLList implements Iterable<Data> {
      * node and swaps data accordingly
      */
     public void sortByREngagement() {
-        Node<Data> curr = head;
-        Node<Data> currNext = head.next;
-        while (curr != null) {
-            currNext = curr.next;
-            while (currNext != null) {
-                if (curr.getData().getInfluencer().compareByREngagement(currNext
-                    .getData().getInfluencer()) < 0) {
+        Node<Data> insert = null;
 
-                    Data temp = curr.data;
-                    curr.data = currNext.data;
-                    currNext.data = temp;
-                    curr = currNext;
+        if (this.size > 1) {
+            Node<Data> unsorted = head.next;
+            Node<Data> sorted = head;
+            sorted.setNext(null);
+
+            while (unsorted != null) {
+                insert = unsorted;
+                unsorted = unsorted.getNext();
+
+                Data data = insert.getData();
+                Node<Data> curr = head;
+                Node<Data> prev = null;
+
+                while (curr != null && data.getInfluencer()
+                    .compareByREngagement(curr.getData().getInfluencer()) < 0) {
+                    prev = curr;
+                    curr = curr.getNext();
                 }
-                currNext = currNext.next;
+
+                if (prev != null) {
+                    prev.setNext(insert);
+                    insert.setNext(curr);
+                }
+                else {
+                    insert.setNext(head);
+                    head = insert;
+                }
+
             }
-            curr = curr.next;
         }
+
     }
 
 
