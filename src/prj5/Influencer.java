@@ -160,7 +160,7 @@ public class Influencer {
      * @param rate The calculated rate
      */
     public void setTraditionalRate(double rate) {
-        this.engagementRate = rate;
+        this.traditionalRate = rate;
     }
     
     /**
@@ -168,7 +168,7 @@ public class Influencer {
      * @param rate The calculated
      */
     public void setEngagementRate(double rate) {
-        this.traditionalRate = rate;
+        this.engagementRate = rate;
     }
     
     /**
@@ -179,10 +179,9 @@ public class Influencer {
      * @return Returns -1 if this is smaller, 0 if equal, 1 if larger
      */
     public int compareByChannel(Influencer o) {
-        String s = o.getChannelName(); 
-        s.toLowerCase(); 
+        String s = o.getChannelName().toLowerCase(); 
         String currName = channelName.toLowerCase(); 
-        return currName.compareTo(s);
+        return currName.compareTo(s);  
     }
     
     /**

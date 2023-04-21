@@ -50,48 +50,47 @@ public class Input {
         DecimalFormat df = new DecimalFormat("#.#");
         // printing out traditional engagement rate in the
         // first quarter for each one
-        list[0].sortByName();
-        list[1].sortByName();
-        list[2].sortByName();
+//        list[0].sortByName();
+//        list[1].sortByName();
+//        list[2].sortByName();
+//        
+//
+//        for (int x = 0; x < list[2].size(); x++) {
+//            System.out.println(list[2].get(x).getInfluencer().getChannelName());
+//            int janLikes = list[0].get(x).getInfluencer().getLikes();  
+//            int febLikes = list[1].get(x).getInfluencer().getLikes();
+//            int marLikes = list[2].get(x).getInfluencer().getLikes();
+//            int likes = janLikes + febLikes + marLikes;
+//
+//            int janCom = list[0].get(x).getInfluencer().getComments();
+//            int febCom = list[1].get(x).getInfluencer().getComments();
+//            int marCom = list[2].get(x).getInfluencer().getComments();
+//            int comments = janCom + febCom + marCom;
+//
+//            int follow = list[2].get(x).getInfluencer().getFollowers();
+//            double traditional;
+//            
+//            if (follow == 0) {
+//                traditional = 0;
+//            } 
+//            else {
+//                traditional = ((likes + comments) / (double)follow) * 100;
+//            }
+//            
+//            System.out.print("traditional: ");
+//            if (traditional == 0) {
+//                System.out.println("N/A");
+//            }
+//            else {
+//                System.out.println(df.format(traditional));
+//            }
+//            System.out.print("\n");
+//
+//            // System.out.println("==========\n"+ "");
+//
+//        }
         
-
-        for (int x = 0; x < list[2].size(); x++) {
-            System.out.println(list[2].get(x).getInfluencer().getChannelName());
-            int janLikes = list[0].get(x).getInfluencer().getLikes();  
-            int febLikes = list[1].get(x).getInfluencer().getLikes();
-            int marLikes = list[2].get(x).getInfluencer().getLikes();
-            int likes = janLikes + febLikes + marLikes;
-
-            int janCom = list[0].get(x).getInfluencer().getComments();
-            int febCom = list[1].get(x).getInfluencer().getComments();
-            int marCom = list[2].get(x).getInfluencer().getComments();
-            int comments = janCom + febCom + marCom;
-
-            int follow = list[2].get(x).getInfluencer().getFollowers();
-            double traditional;
-            
-            if (follow == 0) {
-                traditional = 0;
-            } 
-            else {
-                traditional = ((likes + comments) / (double)follow) * 100;
-            }
-            
-            System.out.print("traditional: ");
-            if (traditional == 0) {
-                System.out.println("N/A");
-            }
-            else {
-                System.out.println(df.format(traditional));
-            }
-            System.out.print("\n");
-
-            // System.out.println("==========\n"+ "");
-
-        }
-        
-        
-        ///REACH 
+        //traditional 
         
         ArrayList<String> channels = new ArrayList<String>(); 
         for (int x = 0; x < list[3].size(); x++)
@@ -102,19 +101,82 @@ public class Input {
             }
         }
         
-        SLList calculated = new SLList(); 
+        SLList calculatedTrad = new SLList(); 
         
         for (int x = 0; x < channels.size(); x++)
         {
+            //System.out.println(channels.get(x) + ": ");
             int likes = 0; 
             int comments = 0; 
-            int views = 0; 
-            for (int y = 0; y < list[3].size(); x++)
+            int follow = 0; 
+            for (int y = 0; y < list[3].size(); y++)
             {
                 if ((list[3].get(y).getInfluencer().getChannelName().equals(
                     channels.get(x))) && (list[3].get(y).getMonth().equals(
                         "January") || list[3].get(y).getMonth().equals(
-                            "Febuary") || list[3].get(y).getMonth().equals(
+                            "February") || list[3].get(y).getMonth().equals(
+                                "March")))
+                {
+                    comments += list[3].get(y).getInfluencer().getComments(); 
+                    likes += list[3].get(y).getInfluencer().getLikes();    
+                }
+                if ((list[3].get(y).getInfluencer().getChannelName().equals(
+                    channels.get(x))) && (list[3].get(y).getMonth().equals(
+                        "March")))
+                {
+                    follow = list[3].get(y).getInfluencer().getFollowers(); 
+                }
+            }
+            double trad; 
+            if (follow == 0)
+            {
+                trad = 0.0; 
+            }
+            else
+            {
+                trad = ((likes + comments)/(double)follow) * 100.0; 
+            }
+            Influencer curr = new Influencer("", channels.get(x), "", "", 0, 0, 0, 0, 0);
+            curr.setTraditionalRate(trad); 
+            Data currData = new Data("", curr); 
+            calculatedTrad.add(currData);   
+        }
+        
+        calculatedTrad.sortByName(); 
+        for (int x = 0; x < calculatedTrad.size(); x++)
+        {
+            System.out.println(calculatedTrad.get(x).getInfluencer().getChannelName()); 
+            System.out.print("traditional: "); 
+            if (calculatedTrad.get(x).getInfluencer().getTraditionalEngagement() == 0)
+            {
+                System.out.println("N/A"); 
+            }
+            else
+            {
+                System.out.println(df.format(calculatedTrad.get(x).getInfluencer().getTraditionalEngagement()));
+            }
+            System.out.println("");
+        }
+        
+        
+        System.out.println(""); 
+        System.out.println("");
+        ///REACH 
+        
+        SLList calculated = new SLList(); 
+        
+        for (int x = 0; x < channels.size(); x++)
+        {
+            //System.out.println(channels.get(x) + ": ");
+            int likes = 0; 
+            int comments = 0; 
+            int views = 0; 
+            for (int y = 0; y < list[3].size(); y++)
+            {
+                if ((list[3].get(y).getInfluencer().getChannelName().equals(
+                    channels.get(x))) && (list[3].get(y).getMonth().equals(
+                        "January") || list[3].get(y).getMonth().equals(
+                            "February") || list[3].get(y).getMonth().equals(
                                 "March")))
                 {
                     views += list[3].get(y).getInfluencer().getViews(); 
@@ -122,9 +184,18 @@ public class Input {
                     likes += list[3].get(y).getInfluencer().getLikes();    
                 }
             }
-            double reach = (likes + comments)/(double)views; 
+            double reach; 
+            if (views == 0)
+            {
+                reach = 0.0; 
+            }
+            else
+            {
+                reach = ((likes + comments)/(double)views) * 100.0; 
+            }
             Influencer curr = new Influencer("", channels.get(x), "", "", 0, 0, 0, 0, 0);
-            curr.setEngagementReach(reach); 
+            curr.setEngagementRate(reach); 
+            //System.out.println(reach); 
             Data currData = new Data("", curr); 
             calculated.add(currData);   
         }
@@ -132,10 +203,19 @@ public class Input {
         calculated.sortByREngagement(); 
         for (int x = 0; x < calculated.size(); x++)
         {
+            //System.out.println(calculated.get(x).getInfluencer().getEngagementReach()); 
             System.out.println(calculated.get(x).getInfluencer().getChannelName()); 
-            System.out.print("traditional: "); 
-            System.out.println(df.format(calculated.get(x).getInfluencer().getEngagementReach()));
-            System.out.print("\n");
+            System.out.print("reach: "); 
+            if (calculated.get(x).getInfluencer().getEngagementReach() == 0)
+            {
+                System.out.println("N/A"); 
+            }
+            else
+            {
+                System.out.println(df.format(calculated.get(x).getInfluencer().getEngagementReach()));
+            }
+            
+            System.out.println(""); 
         }
 
         //System.out.println(list[1].get(0).getInfluencer().getChannelName());
@@ -152,9 +232,6 @@ public class Input {
         //list[1].sortByREngagement();
         //list[2].sortByREngagement();
 
-        
-        System.out.print("\n");
-        System.out.print("\n");
 
 //        Rates[] engagementRates = new Rates[list[2].size()];
 //        for (int x = 0; x < list[2].size(); x++) {
@@ -201,4 +278,3 @@ public class Input {
         
 
     }
-}
