@@ -156,7 +156,10 @@ public class Influencer {
      * @return Returns -1 if this is smaller, 0 if equal, 1 if larger
      */
     public int compareByChannel(Influencer o) {
-        return this.getChannelName().compareTo(o.getChannelName());
+        String s = o.getChannelName(); 
+        s.toUpperCase(); 
+        String currName = channelName.toUpperCase(); 
+        return currName.compareTo(s);
     }
     
     /**
