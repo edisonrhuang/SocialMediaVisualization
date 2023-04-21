@@ -36,7 +36,7 @@ public class Input {
     public static void main(String[] args) throws FileNotFoundException {
         SLList[] list = null;
         FileReader fr = null;
-        if (args.length > 1) {
+        if (args.length > 0) {
             fr = new FileReader(args[0]);
             list = fr.getList();
         }
@@ -65,10 +65,22 @@ public class Input {
             int comments = janCom + febCom + marCom;
 
             int follow = list[2].get(x).getInfluencer().getFollowers();
-            double traditional = (((double)likes + (double)comments)
-                / (double)follow) * 100;
+            double traditional;
+            
+            if (follow == 0) {
+                traditional = 0;
+            } 
+            else {
+                traditional = ((likes + comments) / (double)follow) * 100;
+            }
+            
             System.out.print("traditional: ");
-            System.out.println(df.format(traditional));
+            if (traditional == 0) {
+                System.out.println("N/A");
+            }
+            else {
+                System.out.println(df.format(traditional));
+            }
             System.out.print("\n");
             // System.out.println("==========\n"+ "");
 
@@ -97,27 +109,39 @@ public class Input {
             int febLikes = list[1].get(x).getInfluencer().getLikes();
             int marLikes = list[2].get(x).getInfluencer().getLikes();
             int likes = janLikes + febLikes + marLikes;
-
+            
             int janCom = list[0].get(x).getInfluencer().getComments();
             int febCom = list[1].get(x).getInfluencer().getComments();
             int marCom = list[2].get(x).getInfluencer().getComments();
             int comments = janCom + febCom + marCom;
-
+            
             int janView = list[0].get(x).getInfluencer().getViews();
             int febView = list[1].get(x).getInfluencer().getViews();
             int marView = list[2].get(x).getInfluencer().getViews();
-
+            
             int views = janView + febView + marView;
-
-            double reach = (((double)likes + (double)comments) / (double)views)
-                * 100;
+            double reach;
+            
+            if (views == 0) {
+                reach = 0;
+            } 
+            else {
+                reach = ((likes + comments) / (double)views) * 100;
+            }
+            
             System.out.print("reach: ");
-            System.out.println(df.format(reach));
+            if (reach == 0) {
+                System.out.println("N/A");
+            } 
+            else {
+                System.out.println(df.format(reach));
+            }
             //System.out.println("==========\n" + "");
             System.out.print("\n");
 
         }
+        System.out.print("\n");
+        System.out.print("\n");
 
     }
-
 }

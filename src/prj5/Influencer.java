@@ -3,6 +3,7 @@
 // As a Hokie, I will conduct myself with honor and integrity at all times.
 // I will not lie, cheat, or steal, nor will I accept the actions of those who
 // do.
+// - Edison Huang (edisonrhuang)
 package prj5;
 
 /**
@@ -191,4 +192,13 @@ public class Influencer {
         if (thisEngagement == otherEngagement) { return 0; }
         else { return 1; }
     }
+    
+    /*
+    public String toString() {
+        return "Channel Name: " + this.getChannelName() + "\nLikes: " + 
+        this.getLikes() + "\nPosts: " + this.getPosts() + "\nFollowers" + 
+        this.getFollowers() + "\nComments:" + this.getComments() + "\nViews:" + 
+        this.getViews();
+    }
+    */
 }
