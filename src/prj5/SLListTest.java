@@ -23,8 +23,8 @@ public class SLListTest extends student.TestCase {
     public void setUp() {
         sl = new SLList();
         sl2 = new SLList();
-        Influencer influ1 = new Influencer("test", "channel", "usa", "robots", 10, 20,
-            2000, 10, 50);
+        Influencer influ1 = new Influencer("test", "channel", "usa", "robots",
+            10, 20, 2000, 10, 50);
         data1 = new Data("January", influ1);
         data2 = new Data("March", influ1);
     }
@@ -75,8 +75,8 @@ public class SLListTest extends student.TestCase {
         // adding to a list with an object
         Influencer influ2 = new Influencer("test2", "channel", "usa", "robots",
             10, 20, 2000, 10, 50);
-        Data data2 = new Data("Febuary", influ2);
-        sl.add(data2);
+        Data data10 = new Data("Febuary", influ2);
+        sl.add(data10);
         assertEquals(sl.size(), 2);
     }
 
@@ -199,7 +199,7 @@ public class SLListTest extends student.TestCase {
         // test that list size is greater than one
         sl2.add(data5);
         sl2.sortByREngagement();
-        
+
         sl.add(data6);
         sl.add(data5);
         sl.add(data7);
