@@ -30,7 +30,7 @@ public class Input2022FReferenceTest extends student.TestCase {
 
         fileData = null;
     }
-
+ 
 
     /**
      * Test the program with randomly generated data that have NA fields.

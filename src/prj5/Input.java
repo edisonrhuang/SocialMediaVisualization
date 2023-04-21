@@ -33,14 +33,33 @@ public class Input {
      * @throws FileNotFoundException
      */
     public static void main(String[] args) throws FileNotFoundException {
+        SLList[] list = null;
+        FileReader fr = null;
         if (args.length > 1) {
-            FileReader fr = new FileReader(args[0]);
-            SLList[] list = fr.getList();
+            fr = new FileReader(args[0]);
+            list = fr.getList();
         }
         else {
-            FileReader fr = new FileReader("SampleInput1_2022.csv");
-            SLList[] list = fr.getList();
+            fr = new FileReader("SampleInput1_2022.csv");
+            list = fr.getList();
         }
+
+        
+        
+        list[1].sortByName();
+        list[2].sortByName();
+        list[3].sortByName();
+        
+        System.out.println(list[1].get(0).getInfluencer().getChannelName());
+        System.out.println(list[1].get(1).getInfluencer().getChannelName());
+        System.out.println(list[1].get(2).getInfluencer().getChannelName());
+        System.out.println(list[1].get(3).getInfluencer().getChannelName());
+
+    }
+
+
+    public void totalTEngagement() {
+
     }
 
 }

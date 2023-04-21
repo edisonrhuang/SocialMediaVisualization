@@ -61,15 +61,18 @@ public class FileReader {
         SLList sllAll = new SLList();
 
         Scanner file = new Scanner(new File(influencerFile));
+        //skip first???
+        file.nextLine();
         while (file.hasNextLine()) {
-
+            
             String read = file.nextLine();
+            // use comma as delimiter
             Scanner line = new Scanner(read).useDelimiter(",\\s*");
             String[] tokens = new String[10];
             int tokenCount = 0;
 
             // counts tokens and stores them
-            while (line.hasNext() && tokenCount < 10) {
+            while (line.hasNext() && tokenCount < 10) { 
                 tokens[tokenCount++] = line.next();
             }
             line.close();
@@ -92,7 +95,7 @@ public class FileReader {
                 if (tokens[0].equals("January")) {
                     sllJan.add(data);
                 }
-                if (tokens[0].equals("Feburary")) {
+                if (tokens[0].equals("February")) {
                     sllFeb.add(data);
                 }
                 if (tokens[0].equals("March")) {

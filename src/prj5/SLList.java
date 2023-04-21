@@ -30,6 +30,28 @@ public class SLList implements Iterable<Data> {
     }
 
 
+    // NEW>??!? DELETE
+    public Data get(int index) {
+        Node<Data> current = head;
+        int currentIndex = 0;
+        Data data = null;
+        while (current != null) {
+            if (currentIndex == index) {
+                data = current.data;
+            }
+            currentIndex++;
+            current = current.next;
+        }
+
+        // check if the data was null...
+        if (data == null) {
+            // ... if so throw an exception
+            throw new IndexOutOfBoundsException("Index exceeds the size.");
+        }
+        return data;
+    }
+
+
     /**
      * returns the head
      * 
@@ -81,7 +103,7 @@ public class SLList implements Iterable<Data> {
      * sort by the name in alphabetical order
      * 
      */
-    public void sortByName() {
+    public void sort() {
         Node<Data> curr = head;
         Node<Data> currNext = head.next;
         while (curr != null) {
@@ -109,6 +131,43 @@ public class SLList implements Iterable<Data> {
          * }
          * System.out.println("");
          */
+    }
+
+
+    public void sortByName() {
+        Node<Data> insert = null;
+
+        if (this.size > 1) {
+            Node<Data> unsorted = head.next;
+            Node<Data> sorted = head;
+            sorted.setNext(null);
+
+            while (unsorted != null) {
+                insert = unsorted;
+                unsorted = unsorted.getNext();
+                
+                Data data = insert.getData();
+                Node<Data> curr = head;
+                Node<Data> prev = null;
+
+                while (curr != null && data.getInfluencer().compareByChannel(
+                    curr.getData().getInfluencer()) > 0) {
+                    prev = curr;
+                    curr = curr.getNext();
+                }
+
+                if (prev != null) {
+                    prev.setNext(insert);
+                    insert.setNext(curr);
+                }
+                else {
+                    insert.setNext(head);
+                    head = insert;
+                }
+
+            }
+        }
+
     }
 
 
