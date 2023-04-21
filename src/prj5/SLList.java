@@ -128,9 +128,9 @@ public class SLList implements Iterable<Data> {
      * 
      * sort by the name placing them alphabetically in the list A-Z. compares
      * curr node to next node and swaps/stays still accordingly traversing
-     * through whole list
+     * through whole list sort by the name in alphabetical order
      * 
-     * sort by the name in alphabetical order
+     * used lecture videos as reference code
      * 
      */
     public void sortByName() {
@@ -150,7 +150,7 @@ public class SLList implements Iterable<Data> {
                 Node<Data> prev = null;
 
                 while (curr != null && data.getInfluencer().compareByChannel(
-                    curr.getData().getInfluencer()) < 0) {
+                    curr.getData().getInfluencer()) > 0) {
                     prev = curr;
                     curr = curr.getNext();
                 }
@@ -174,6 +174,8 @@ public class SLList implements Iterable<Data> {
      * sort by traditional engagement rate, placing the highest engagement first
      * and the the lowest last in the list. compares curr node to next node and
      * swaps their data accordingly
+     * 
+     * used lecture videos as reference code
      */
     public void sortByTEngagement() {
         Node<Data> insert = null;
@@ -216,6 +218,8 @@ public class SLList implements Iterable<Data> {
      * sort by engagement rate reach, placing the highest engagement rate at
      * the front of the list and lowest at the end. compares curr node to next
      * node and swaps data accordingly
+     * 
+     * used lecture videos as reference code
      */
     public void sortByREngagement() {
         Node<Data> insert = null;
