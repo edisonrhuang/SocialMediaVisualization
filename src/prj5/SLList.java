@@ -58,17 +58,6 @@ public class SLList implements Iterable<Data> {
         return data;
     }
 
-
-    /**
-     * returns the head
-     * 
-     * @return Node<Data> the front node
-     */
-    public Node<Data> getHead() {
-        return head;
-    }
-
-
     /**
      * Adds the object to the end of the list.
      *
