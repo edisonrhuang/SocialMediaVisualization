@@ -7,11 +7,11 @@ import java.io.FileNotFoundException;
 // As a Hokie, I will conduct myself with honor and integrity at all times.
 // I will not lie, cheat, or steal, nor will I accept the actions of those who
 // do.
-// - Faith Jones (fejones20)
+// - Ayesha Kabduwal (ayeshak22)
 
 /**
  * 
- * @author Faith Jones (fejones20)
+ * @author Ayesha Kabduwal (ayeshak22)
  * @version 2023.04.18
  *
  */
@@ -44,16 +44,82 @@ public class Input {
             list = fr.getList();
         }
 
+        
+        
+        //printing out traditional engagement rate in the 
+        //first quarter for each one 
         list[0].sortByName();
         list[1].sortByName();
         list[2].sortByName();
         
+        System.out.println("HERE"); 
+        for (int x = 0; x < list[2].size(); x++)
+        {
+            System.out.println(list[2].get(x).getInfluencer().getChannelName()); 
+            int janLikes = list[0].get(x).getInfluencer().getLikes(); 
+            int febLikes = list[1].get(x).getInfluencer().getLikes(); 
+            int marLikes = list[2].get(x).getInfluencer().getLikes(); 
+            int likes = janLikes + febLikes + marLikes; 
+            
+            int janCom = list[0].get(x).getInfluencer().getComments(); 
+            int febCom = list[1].get(x).getInfluencer().getComments(); 
+            int marCom = list[2].get(x).getInfluencer().getComments(); 
+            int comments = janCom + febCom + marCom; 
+            
+            int follow = list[2].get(x).getInfluencer().getFollowers(); 
+            double traditional = (((double)likes + (double)comments)/(double)follow) * 100; 
+            System.out.print("traditional: "); 
+            System.out.println(traditional); 
+            System.out.println("==========\n"
+                + ""); 
+            
+        }
+        
         System.out.println(list[1].get(0).getInfluencer().getChannelName());
+        //System.out.println("traditional: ", list[2].get(0).getInfluencer().getTraditionalEngagement()); 
         System.out.println(list[1].get(1).getInfluencer().getChannelName());
         System.out.println(list[1].get(2).getInfluencer().getChannelName());
         System.out.println(list[1].get(3).getInfluencer().getChannelName());
+        
+        //Second, your code must output the influencer summaries
+        //for the first quarter, sorted in descending order 
+        //by reach engagement rate.
+        list[0].sortByREngagement();
+        list[1].sortByREngagement();
+        list[2].sortByREngagement();
+        
+        System.out.println("BREAK"); 
+        for (int x = 0; x < list[2].size(); x++)
+        {
+            System.out.println(list[2].get(x).getInfluencer().getChannelName()); 
+            int janLikes = list[0].get(x).getInfluencer().getLikes(); 
+            int febLikes = list[1].get(x).getInfluencer().getLikes(); 
+            int marLikes = list[2].get(x).getInfluencer().getLikes(); 
+            int likes = janLikes + febLikes + marLikes; 
+            
+            int janCom = list[0].get(x).getInfluencer().getComments(); 
+            int febCom = list[1].get(x).getInfluencer().getComments(); 
+            int marCom = list[2].get(x).getInfluencer().getComments(); 
+            int comments = janCom + febCom + marCom; 
+            
+            int janView = list[0].get(x).getInfluencer().getViews(); 
+            int febView = list[1].get(x).getInfluencer().getViews(); 
+            int marView = list[2].get(x).getInfluencer().getViews(); 
+            
+            
+            int views = janView + febView + marView; 
+            
+            double reach = (((double)likes + (double)comments)/(double)views) * 100; 
+            System.out.print("reach: "); 
+            System.out.println(reach); 
+            System.out.println("==========\n"
+                + ""); 
+            
+        }    
 
     }
+    
+    //
 
 
     public void totalTEngagement() {

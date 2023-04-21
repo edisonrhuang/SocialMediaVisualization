@@ -151,7 +151,7 @@ public class SLList implements Iterable<Data> {
                 Node<Data> prev = null;
 
                 while (curr != null && data.getInfluencer().compareByChannel(
-                    curr.getData().getInfluencer()) > 0) {
+                    curr.getData().getInfluencer()) < 0) {
                     prev = curr;
                     curr = curr.getNext();
                 }
