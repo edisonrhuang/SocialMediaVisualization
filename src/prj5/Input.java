@@ -2,6 +2,7 @@ package prj5;
 
 import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 // Virginia Tech Honor Code Pledge:
@@ -31,7 +32,7 @@ public class Input {
      * main method executing our program
      * 
      * @param args
-     *            the String of arguements passed in
+     *            the String of arguments passed in
      * @throws FileNotFoundException
      */
     public static void main(String[] args) throws FileNotFoundException {
@@ -52,6 +53,7 @@ public class Input {
         list[0].sortByName();
         list[1].sortByName();
         list[2].sortByName();
+        
 
         for (int x = 0; x < list[2].size(); x++) {
             System.out.println(list[2].get(x).getInfluencer().getChannelName());
@@ -87,6 +89,54 @@ public class Input {
             // System.out.println("==========\n"+ "");
 
         }
+        
+        
+        ///REACH 
+        
+        ArrayList<String> channels = new ArrayList<String>(); 
+        for (int x = 0; x < list[3].size(); x++)
+        {
+            if (!channels.contains(list[3].get(x).getInfluencer().getChannelName()))
+            {
+                channels.add(list[3].get(x).getInfluencer().getChannelName()); 
+            }
+        }
+        
+        SLList calculated = new SLList(); 
+        
+        for (int x = 0; x < channels.size(); x++)
+        {
+            int likes = 0; 
+            int comments = 0; 
+            int views = 0; 
+            for (int y = 0; y < list[3].size(); x++)
+            {
+                if ((list[3].get(y).getInfluencer().getChannelName().equals(
+                    channels.get(x))) && (list[3].get(y).getMonth().equals(
+                        "January") || list[3].get(y).getMonth().equals(
+                            "Febuary") || list[3].get(y).getMonth().equals(
+                                "March")))
+                {
+                    views += list[3].get(y).getInfluencer().getViews(); 
+                    comments += list[3].get(y).getInfluencer().getComments(); 
+                    likes += list[3].get(y).getInfluencer().getLikes();    
+                }
+            }
+            double reach = (likes + comments)/(double)views; 
+            Influencer curr = new Influencer("", channels.get(x), "", "", 0, 0, 0, 0, 0);
+            curr.setEngagementReach(reach); 
+            Data currData = new Data("", curr); 
+            calculated.add(currData);   
+        }
+        
+        calculated.sortByREngagement(); 
+        for (int x = 0; x < calculated.size(); x++)
+        {
+            System.out.println(calculated.get(x).getInfluencer().getChannelName()); 
+            System.out.print("traditional: "); 
+            System.out.println(df.format(calculated.get(x).getInfluencer().getEngagementReach()));
+            System.out.print("\n");
+        }
 
         //System.out.println(list[1].get(0).getInfluencer().getChannelName());
         // System.out.println("traditional: ",
@@ -106,34 +156,34 @@ public class Input {
         System.out.print("\n");
         System.out.print("\n");
 
-        Rates[] engagementRates = new Rates[list[2].size()];
-        for (int x = 0; x < list[2].size(); x++) {
-            int janLikes = list[0].get(x).getInfluencer().getLikes();
-            int febLikes = list[1].get(x).getInfluencer().getLikes();
-            int marLikes = list[2].get(x).getInfluencer().getLikes();
-            int likes = janLikes + febLikes + marLikes;
-            
-            int janCom = list[0].get(x).getInfluencer().getComments();
-            int febCom = list[1].get(x).getInfluencer().getComments();
-            int marCom = list[2].get(x).getInfluencer().getComments();
-            int comments = janCom + febCom + marCom;
-            
-            int janView = list[0].get(x).getInfluencer().getViews();
-            int febView = list[1].get(x).getInfluencer().getViews();
-            int marView = list[2].get(x).getInfluencer().getViews();
-            
-            int views = janView + febView + marView;
-            double reach;
-            
-            if (views == 0) {
-                reach = 0;
-            } 
-            else {
-                reach = ((likes + comments) / (double)views) * 100;
-            }
-            
-            engagementRates[x] = new Rates(list[2].get(x).getInfluencer()
-                .getChannelName(), reach);
+//        Rates[] engagementRates = new Rates[list[2].size()];
+//        for (int x = 0; x < list[2].size(); x++) {
+//            int janLikes = list[0].get(x).getInfluencer().getLikes();
+//            int febLikes = list[1].get(x).getInfluencer().getLikes();
+//            int marLikes = list[2].get(x).getInfluencer().getLikes();
+//            int likes = janLikes + febLikes + marLikes;
+//            
+//            int janCom = list[0].get(x).getInfluencer().getComments();
+//            int febCom = list[1].get(x).getInfluencer().getComments();
+//            int marCom = list[2].get(x).getInfluencer().getComments();
+//            int comments = janCom + febCom + marCom;
+//            
+//            int janView = list[0].get(x).getInfluencer().getViews();
+//            int febView = list[1].get(x).getInfluencer().getViews();
+//            int marView = list[2].get(x).getInfluencer().getViews();
+//            
+//            int views = janView + febView + marView;
+//            double reach;
+//            
+//            if (views == 0) {
+//                reach = 0;
+//            } 
+//            else {
+//                reach = ((likes + comments) / (double)views) * 100;
+//            }
+//            
+//            engagementRates[x] = new Rates(list[2].get(x).getInfluencer()
+//                .getChannelName(), reach);
             
             /*
             System.out.print("reach: ");
@@ -148,19 +198,7 @@ public class Input {
             */
         }
         
-        Arrays.sort(engagementRates);
-        for (int i = engagementRates.length - 1; i >= 0; i--) {
-            System.out.println(engagementRates[i].getName());
-            System.out.print("reach: ");
-            if (engagementRates[i].getRate() == 0) {
-                System.out.println("N/A");
-            } 
-            else {
-                System.out.println(df.format(engagementRates[i].getRate()));
-            }
-            //System.out.println("==========\n" + "");
-            System.out.print("\n");
-        }
+        
 
     }
 }
