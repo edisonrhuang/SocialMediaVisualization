@@ -46,7 +46,7 @@ public class SLList implements Iterable<Data> {
             if (currentIndex == index) {
                 data = current.data;
             }
-            currentIndex++;
+            currentIndex++;  
             current = current.next;
         }
 

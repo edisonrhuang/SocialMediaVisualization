@@ -55,7 +55,7 @@ public class Input {
 
         for (int x = 0; x < list[2].size(); x++) {
             System.out.println(list[2].get(x).getInfluencer().getChannelName());
-            int janLikes = list[0].get(x).getInfluencer().getLikes();
+            int janLikes = list[0].get(x).getInfluencer().getLikes();  
             int febLikes = list[1].get(x).getInfluencer().getLikes();
             int marLikes = list[2].get(x).getInfluencer().getLikes();
             int likes = janLikes + febLikes + marLikes;

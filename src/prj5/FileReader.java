@@ -61,10 +61,10 @@ public class FileReader {
         SLList sllAll = new SLList();
 
         Scanner file = new Scanner(new File(influencerFile));
-        //skip first???
+        // skip first???
         file.nextLine();
         while (file.hasNextLine()) {
-            
+
             String read = file.nextLine();
             // use comma as delimiter
             Scanner line = new Scanner(read).useDelimiter(",\\s*");
@@ -72,7 +72,7 @@ public class FileReader {
             int tokenCount = 0;
 
             // counts tokens and stores them
-            while (line.hasNext() && tokenCount < 10) { 
+            while (line.hasNext() && tokenCount < 10) {
                 tokens[tokenCount++] = line.next();
             }
             line.close();
@@ -92,6 +92,8 @@ public class FileReader {
                 // add all data to one list for 1st quarter
                 sllAll.add(data);
                 // if specified month, add it to that list
+
+                // sort by channelname rather than month
                 if (tokens[0].equals("January")) {
                     sllJan.add(data);
                 }

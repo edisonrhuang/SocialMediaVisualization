@@ -24,6 +24,8 @@ public class Influencer {
     private int followers;
     private int comments;
     private int views;
+    private double traditionalRate;
+    private double engagementRate;
     
     // Constructors ------------------------------------------------------------
     
@@ -53,6 +55,8 @@ public class Influencer {
         this.followers = followers;
         this.comments = comments;
         this.views = views;
+        traditionalRate = 0;
+        engagementRate = 0;
     }
     
     // Methods -----------------------------------------------------------------
@@ -134,6 +138,7 @@ public class Influencer {
      * @return Returns the traditional engagement value.
      */
     public double getTraditionalEngagement() {
+        if (traditionalRate != 0) { return traditionalRate; }
         if (this.getFollowers() == 0) { return 0.0; }
         return ((this.getComments() + this.getLikes()) / 
             (double)this.getFollowers()) * 100;
@@ -144,9 +149,26 @@ public class Influencer {
      * @return Returns the engagement reach value
      */
     public double getEngagementReach() {
+        if (engagementRate != 0) { return engagementRate; }
         if (this.getViews() == 0) { return 0.0; }
         return ((this.getComments() + this.getLikes()) / 
             (double)this.getViews()) * 100;
+    }
+    
+    /**
+     * Sets the traditional rate to an already calculated value
+     * @param rate The calculated rate
+     */
+    public void setTraditionalRate(double rate) {
+        this.engagementRate = rate;
+    }
+    
+    /**
+     * Sets the engagement rate to an already calculated value
+     * @param rate The calculated
+     */
+    public void setEngagementRate(double rate) {
+        this.traditionalRate = rate;
     }
     
     /**
