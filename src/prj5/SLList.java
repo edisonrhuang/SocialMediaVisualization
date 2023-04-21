@@ -30,7 +30,14 @@ public class SLList implements Iterable<Data> {
     }
 
 
-    // NEW>??!? DELETE
+    /**
+     * get the specified index data in the list
+     * used lecture notes as baseline for code
+     * 
+     * @param index
+     *            the desired index
+     * @return Data the data in the node
+     */
     public Data get(int index) {
         Node<Data> current = head;
         int currentIndex = 0;
@@ -309,17 +316,6 @@ public class SLList implements Iterable<Data> {
          */
         public T getData() {
             return data;
-        }
-
-
-        /**
-         * sets the new data in node
-         * 
-         * @param newData
-         *            the new data in node
-         */
-        public void setData(T newData) {
-            data = newData;
         }
 
 
