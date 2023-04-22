@@ -1,12 +1,19 @@
 package prj5;
 
+// Virginia Tech Honor Code Pledge:
+//
+// As a Hokie, I will conduct myself with honor and integrity at all times.
+// I will not lie, cheat, or steal, nor will I accept the actions of those who
+// do.
+// - Ayesha Kabduwal (ayeshak22)
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /***
  * 
  * @author ayeshakabduwal
- * @version 1.0
+ * @version 2023.04.21
  */
 
 public class SLListTest extends student.TestCase {

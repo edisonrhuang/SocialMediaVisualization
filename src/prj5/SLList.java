@@ -42,21 +42,23 @@ public class SLList implements Iterable<Data> {
         Node<Data> current = head;
         int currentIndex = 0;
         Data data = null;
+
+        // loop through nodes to find desired index
         while (current != null) {
             if (currentIndex == index) {
                 data = current.data;
             }
-            currentIndex++;  
+            currentIndex++;
             current = current.next;
         }
 
-        // check if the data was null...
+        // check if the data was null and throw exception
         if (data == null) {
-            // ... if so throw an exception
             throw new IndexOutOfBoundsException("Index exceeds the size.");
         }
         return data;
     }
+
 
     /**
      * Adds the object to the end of the list.
@@ -74,12 +76,13 @@ public class SLList implements Iterable<Data> {
         }
 
         Node<Data> current = head;
+
         // empty stack case
         if (isEmpty()) {
             head = new Node<Data>(obj);
         }
 
-        // other cases
+        // else add
         else {
             while (current.next != null) {
                 current = current.next;
@@ -133,6 +136,7 @@ public class SLList implements Iterable<Data> {
         Node<Data> insert = null;
 
         if (this.size > 1) {
+            // seperate into sorted and unsorted
             Node<Data> unsorted = head.next;
             Node<Data> sorted = head;
             sorted.setNext(null);
@@ -145,16 +149,19 @@ public class SLList implements Iterable<Data> {
                 Node<Data> curr = head;
                 Node<Data> prev = null;
 
+                // compares by channel name and puts in alphabetical order
                 while (curr != null && data.getInfluencer().compareByChannel(
                     curr.getData().getInfluencer()) > 0) {
                     prev = curr;
                     curr = curr.getNext();
                 }
 
+                // if not the first node
                 if (prev != null) {
                     prev.setNext(insert);
                     insert.setNext(curr);
                 }
+                // if first node
                 else {
                     insert.setNext(head);
                     head = insert;
@@ -177,6 +184,7 @@ public class SLList implements Iterable<Data> {
         Node<Data> insert = null;
 
         if (this.size > 1) {
+            // seperate into sorted vs unsorted part
             Node<Data> unsorted = head.next;
             Node<Data> sorted = head;
             sorted.setNext(null);
@@ -189,16 +197,18 @@ public class SLList implements Iterable<Data> {
                 Node<Data> curr = head;
                 Node<Data> prev = null;
 
+                // compares by enagement rate and swaps if applicable
                 while (curr != null && data.getInfluencer()
                     .compareByTEngagement(curr.getData().getInfluencer()) < 0) {
                     prev = curr;
                     curr = curr.getNext();
                 }
-
+                // if not first node
                 if (prev != null) {
                     prev.setNext(insert);
                     insert.setNext(curr);
                 }
+                // if first node
                 else {
                     insert.setNext(head);
                     head = insert;
@@ -220,6 +230,7 @@ public class SLList implements Iterable<Data> {
     public void sortByREngagement() {
         Node<Data> insert = null;
 
+        // seperate into sorted vs unsorted
         if (this.size > 1) {
             Node<Data> unsorted = head.next;
             Node<Data> sorted = head;
@@ -233,16 +244,20 @@ public class SLList implements Iterable<Data> {
                 Node<Data> curr = head;
                 Node<Data> prev = null;
 
+                // compares by reach and swaps to put in order
                 while (curr != null && data.getInfluencer()
                     .compareByREngagement(curr.getData().getInfluencer()) < 0) {
                     prev = curr;
                     curr = curr.getNext();
                 }
 
+                // if not first node
                 if (prev != null) {
                     prev.setNext(insert);
                     insert.setNext(curr);
                 }
+
+                // if first node
                 else {
                     insert.setNext(head);
                     head = insert;

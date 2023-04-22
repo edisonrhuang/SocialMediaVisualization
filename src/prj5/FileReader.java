@@ -61,7 +61,7 @@ public class FileReader {
         SLList sllAll = new SLList();
 
         Scanner file = new Scanner(new File(influencerFile));
-        // skip first???
+        // skip first line in file
         file.nextLine();
         while (file.hasNextLine()) {
 
@@ -93,7 +93,6 @@ public class FileReader {
                 sllAll.add(data);
                 // if specified month, add it to that list
 
-                // sort by channelname rather than month
                 if (tokens[0].equals("January")) {
                     sllJan.add(data);
                 }
@@ -105,6 +104,7 @@ public class FileReader {
                 }
             }
         }
+        // return lists of months and influencers
         SLList[] sl = { sllJan, sllFeb, sllMarch, sllAll };
         return sl;
     }
