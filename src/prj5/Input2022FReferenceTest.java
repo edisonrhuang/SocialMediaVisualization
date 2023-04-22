@@ -100,7 +100,7 @@ public class Input2022FReferenceTest extends student.TestCase {
             + ".csv", InfluencerOutput_2, systemOut().getHistory());
 
     }
-
+    
 
     /**
      * Test the program with randomly generated data that have NA fields.

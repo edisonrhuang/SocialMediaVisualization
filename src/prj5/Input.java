@@ -155,12 +155,12 @@ public class Input {
             {
                 System.out.println(df.format(calculatedTrad.get(x).getInfluencer().getTraditionalEngagement()));
             }
-            System.out.println("");
+            System.out.println("==========");
         }
         
         
-        System.out.println(""); 
-        System.out.println("");
+        System.out.println("**********"); 
+        System.out.println("**********");
         ///REACH 
         
         SLList calculated = new SLList(); 
@@ -180,6 +180,8 @@ public class Input {
                                 "March")))
                 {
                     views += list[3].get(y).getInfluencer().getViews(); 
+                    //System.out.println("Views:" + list[3].get(y).getInfluencer().getViews());
+                    //System.out.println("Total Views: " + views);
                     comments += list[3].get(y).getInfluencer().getComments(); 
                     likes += list[3].get(y).getInfluencer().getLikes();    
                 }
@@ -215,7 +217,9 @@ public class Input {
                 System.out.println(df.format(calculated.get(x).getInfluencer().getEngagementReach()));
             }
             
-            System.out.println(""); 
+            System.out.println("=========="); 
+           
+            
         }
 
         //System.out.println(list[1].get(0).getInfluencer().getChannelName());
