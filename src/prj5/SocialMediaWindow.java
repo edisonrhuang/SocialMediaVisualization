@@ -39,6 +39,11 @@ public class SocialMediaWindow {
     private TextShape barMidRightName;
     private TextShape barRightName;
 
+    private TextShape barLeftNum;
+    private TextShape barMidLeftNum;
+    private TextShape barMidRightNum;
+    private TextShape barRightNum;
+
     public SocialMediaWindow(SLList[] monthArr) {
 
         listArr = monthArr;
@@ -106,6 +111,16 @@ public class SocialMediaWindow {
         window.addShape(barMidRightName);
         barRightName = new TextShape(50, 225, "", Color.black);
         window.addShape(barRightName);
+
+        // setting up bar numbers for rates
+        barLeftNum = new TextShape(20, 250, "", Color.black);
+        window.addShape(barLeftNum);
+        barMidLeftNum = new TextShape(50, 250, "", Color.black);
+        window.addShape(barMidLeftNum);
+        barMidRightName = new TextShape(80, 250, "", Color.black);
+        window.addShape(barMidRightNum);
+        barRightName = new TextShape(50, 250, "", Color.black);
+        window.addShape(barRightNum);
     }
 
 
@@ -122,6 +137,11 @@ public class SocialMediaWindow {
         // use list[3] ????
         list.sortByName();
         barLeftName.setText(list.get(0).getInfluencer().getChannelName());
+        barMidLeftName.setText(list.get(1).getInfluencer().getChannelName());
+        barMidRightName.setText(list.get(2).getInfluencer().getChannelName());
+        barRightName.setText(list.get(4).getInfluencer().getChannelName());
+
+        // how to know which rate to add under name?
 
     }
 
