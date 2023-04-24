@@ -43,11 +43,15 @@ public class Input {
         if (args.length > 0) {
             fr = new FileReader(args[0]);
             list = fr.getList();
+            
+            SocialMediaWindow smw = new SocialMediaWindow(list);
         }
         // else use default file
         else {
             fr = new FileReader("SampleInput1_2022.csv");
             list = fr.getList();
+            
+            SocialMediaWindow smw = new SocialMediaWindow(list);
         }
 
         // make new decimal formatting
