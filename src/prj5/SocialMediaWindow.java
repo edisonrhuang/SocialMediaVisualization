@@ -9,6 +9,7 @@ import cs2.Shape;
 import cs2.TextShape;
 import cs2.Window;
 import cs2.WindowSide;
+import student.TestableRandom;
 
 public class SocialMediaWindow {
 
@@ -16,7 +17,12 @@ public class SocialMediaWindow {
     private String month;
     private SLList[] listArr;
     private String rate;
-    private SLList currData; 
+    private SLList currData;
+
+    private static final int LEFTALIGN = 20;
+    private static final int LEFTMIDALIGN = 100;
+    private static final int RIGHTMIDALIGN = 180;
+    private static final int RIGHTALIGN = 260;
 
     private Button channelName;
     private Button engagementRate;
@@ -28,35 +34,23 @@ public class SocialMediaWindow {
     private Button firstQuarter;
     private Button quit;
 
-    private Shape barLeft;
-    private Shape barMidLeft;
-    private Shape barMidRight;
-    private Shape barRight;
-
     private TextShape timeFrame;
     private TextShape rateType;
     private TextShape sortBy;
 
-    private TextShape barLeftName;
-    private TextShape barMidLeftName;
-    private TextShape barMidRightName;
-    private TextShape barRightName;
-
-    private TextShape barNameLine;
-    private TextShape barNumLine;
-
-    private TextShape barLeftNum;
-    private TextShape barMidLeftNum;
-    private TextShape barMidRightNum;
-    private TextShape barRightNum;
-    
-    
+    private Shape[] bars;
+    private TextShape[] channelNames;
+    private TextShape[] rateNums;
 
     private DecimalFormat df;
 
+    private Influencer curr;
+    private int index;
+    private Color color;
+
     public SocialMediaWindow(SLList[] monthArr) {
 
-        list = monthArr;
+        listArr = monthArr;
         window = new Window("Social Media Vis");
         df = new DecimalFormat("#.#");
 
@@ -113,37 +107,25 @@ public class SocialMediaWindow {
         timeFrame = new TextShape(10, 10, "", Color.black);
         window.addShape(timeFrame);
 
-        barLeft = new Shape(20, window.getGraphPanelHeight() - 120, 20, 100,
-            Color.black);
-        window.addShape(barLeft);
-        barLeft.
-        
+        bars = new Shape[4];
+        channelNames = new TextShape[4];
+        rateNums = new TextShape[4];
 
-        // setting up bar channelName titles
-// barLeftName = new TextShape(20, 225, "", Color.black);
-// window.addShape(barLeftName);
-// barMidLeftName = new TextShape(100, 225, "", Color.black);
-// window.addShape(barMidLeftName);
-// barMidRightName = new TextShape(200, 225, "", Color.black);
-// window.addShape(barMidRightName);
-// barRightName = new TextShape(300, 225, "", Color.black);
-// window.addShape(barRightName);
+        // bars[0] = new Shape
+        channelNames[0] = new TextShape(LEFTALIGN, 250, "", Color.black);
+        channelNames[1] = new TextShape(LEFTMIDALIGN, 250, "", Color.black);
+        channelNames[2] = new TextShape(RIGHTMIDALIGN, 250, "", Color.black);
+        channelNames[3] = new TextShape(RIGHTALIGN, 250, "", Color.black);
 
-        barNameLine = new TextShape(20, 225, "", Color.black);
-        window.addShape(barNameLine);
+        rateNums[0] = new TextShape(LEFTALIGN, 270, "", Color.black);
+        rateNums[1] = new TextShape(LEFTMIDALIGN, 270, "", Color.black);
+        rateNums[2] = new TextShape(RIGHTMIDALIGN, 270, "", Color.black);
+        rateNums[3] = new TextShape(RIGHTALIGN, 270, "", Color.black);
 
-        barNumLine = new TextShape(50, 225, "", Color.black);
-        window.addShape(barNumLine);
+        clickedJan(janButton);
+        clickedTraditionalRate(traditionalEngagement);
+        clickedChannel(channelName);
 
-        // setting up bar numbers for rates
-// barLeftNum = new TextShape(20, 250, "", Color.black);
-// window.addShape(barLeftNum);
-// barMidLeftNum = new TextShape(50, 250, "", Color.black);
-// window.addShape(barMidLeftNum);
-// barMidRightNum = new TextShape(80, 250, "", Color.black);
-// window.addShape(barMidRightNum);
-// barRightNum = new TextShape(50, 250, "", Color.black);
-// window.addShape(barRightNum);
     }
 
 
@@ -156,82 +138,8 @@ public class SocialMediaWindow {
     public void clickedChannel(Button button) {
         // change to appropriate sort in top left corner
         sortBy.setText("Sorting by Channel Name");
-
-        // use list[3] ????
-        // list.sortByName();
-
-        ArrayList<String> channels = new ArrayList<String>();
-        for (int x = 0; x < list[3].size(); x++) {
-            // if the arraylist does not have channelname, add it
-            if (!channels.contains(list[3].get(x).getInfluencer()
-                .getChannelName())) {
-                channels.add(list[3].get(x).getInfluencer().getChannelName());
-            }
-        }
-
-        // make new list to store
-        SLList calculatedTrad = new SLList();
-
-        // loop through arraylist
-        for (int x = 0; x < channels.size(); x++) {
-            // System.out.println(channels.get(x) + ": ");
-            int likes = 0;
-            int comments = 0;
-            int follow = 0;
-
-            // if the array list contains channelname and the month equals
-            // Jan-March add comments and likes to total comments and likes
-            for (int y = 0; y < list[3].size(); y++) {
-                if ((list[3].get(y).getInfluencer().getChannelName().equals(
-                    channels.get(x))) && (list[3].get(y).getMonth().equals(
-                        "January") || list[3].get(y).getMonth().equals(
-                            "February") || list[3].get(y).getMonth().equals(
-                                "March"))) {
-                    comments += list[3].get(y).getInfluencer().getComments();
-                    likes += list[3].get(y).getInfluencer().getLikes();
-                }
-                // add the followers for just march for traditional calculation
-                if ((list[3].get(y).getInfluencer().getChannelName().equals(
-                    channels.get(x))) && (list[3].get(y).getMonth().equals(
-                        "March"))) {
-                    follow = list[3].get(y).getInfluencer().getFollowers();
-                }
-            }
-            double trad;
-            // account for zeros
-            if (follow == 0) {
-                trad = 0.0;
-            }
-            // else calculate the traditional rate
-            else {
-                trad = ((likes + comments) / (double)follow) * 100.0;
-            }
-            // make new influencer to store data traditional data and calculate
-            // the total traditional data
-            Influencer curr = new Influencer("", channels.get(x), "", "", 0, 0,
-                0, 0, 0);
-            curr.setTraditionalRate(trad);
-            Data currData = new Data("", curr);
-            calculatedTrad.add(currData);
-        }
-
-        // sort by name
-        calculatedTrad.sortByName();
-
-// barLeftName.setText(calculatedTrad.get(0).getInfluencer()
-// .getChannelName());
-// barMidLeftName.setText(calculatedTrad.get(1).getInfluencer()
-// .getChannelName());
-// barMidRightName.setText(calculatedTrad.get(2).getInfluencer()
-// .getChannelName());
-// barRightName.setText(calculatedTrad.get(3).getInfluencer()
-// .getChannelName());
-
-        barNameLine.setText(calculatedTrad.get(0).getInfluencer()
-            .getChannelName() + "  " + calculatedTrad.get(1).getInfluencer()
-                .getChannelName() + "  " + calculatedTrad.get(2).getInfluencer()
-                    .getChannelName() + "  " + calculatedTrad.get(3)
-                        .getInfluencer().getChannelName());
+        currData.sortByName();
+        display();
 
     }
 
@@ -245,8 +153,19 @@ public class SocialMediaWindow {
      */
     public void clickedEngagementRate(Button button) {
         // change to appropriate sort in top left corner
-        sortBy.setText("Sorting by Engagement Rate"); 
-        
+        sortBy.setText("Sorting by Engagement Rate");
+
+        // sort by appropriate rate type
+        if (rate.equals("T")) {
+            currData.sortByTEngagement();
+        }
+        else if (rate.equals("R")) {
+            currData.sortByREngagement();
+        }
+        else {
+            return;
+        }
+        display();
 
     }
 
@@ -261,17 +180,15 @@ public class SocialMediaWindow {
         // change to appropriate rate in top left corner
         rateType.setText("Traditional Engagement Rate");
         rate = "T";
-        
-        Iterator<Data> pointer = currData.iterator(); 
-        int index = 0; 
-        while (pointer.hasNext())
-        {
-            Influencer currInflu = pointer.next().getInfluencer(); 
-            double rate = currInflu.getTraditionalEngagement(); 
+
+        Iterator<Data> pointer = currData.iterator();
+        while (pointer.hasNext()) {
+            Influencer currInflu = pointer.next().getInfluencer();
+            double rate = currInflu.getTraditionalEngagement();
             currInflu.setTraditionalRate(rate);
         }
-        display(); 
-        
+        display();
+
     }
 
 
@@ -285,6 +202,14 @@ public class SocialMediaWindow {
         // change to appropriate rate in top left corner
         rateType.setText("Reach Engagement Rate");
         rate = "R";
+
+        Iterator<Data> pointer = currData.iterator();
+        while (pointer.hasNext()) {
+            Influencer currInflu = pointer.next().getInfluencer();
+            double rate = currInflu.getEngagementReach();
+            currInflu.setEngagementRate(rate);
+        }
+        display();
     }
 
 
@@ -294,16 +219,12 @@ public class SocialMediaWindow {
      * @param button
      *            the jan button
      */
-    public void clickedJan(Button button) 
-    {
-        
+    public void clickedJan(Button button) {
+
         // change to appropriate time frame in top left corner
         timeFrame.setText("January");
         // set list to month appropriate data passed in from reader
-
-        // we may need to change this
-        // list = listArr[0];
-        currData = listArr[0]; 
+        currData = listArr[0];
     }
 
 
@@ -317,7 +238,7 @@ public class SocialMediaWindow {
         // change to appropriate time frame in top left corner
         timeFrame.setText("February");
         // set list to month appropriate data passed in from reader
-        // list = listArr[1];
+        currData = listArr[1];
     }
 
 
@@ -331,7 +252,7 @@ public class SocialMediaWindow {
         // change to appropriate time frame in top left corner
         timeFrame.setText("March");
         // set list to month appropriate data passed in from reader
-        // list = listArr[2];
+        currData = listArr[2];
     }
 
 
@@ -345,7 +266,7 @@ public class SocialMediaWindow {
         // change to appropriate time frame in top left corner
         timeFrame.setText("First Quarter (Jan-March)");
         // set list to month appropriate data passed in from reader
-        // list = listArr[3];
+        currData = listArr[3];
     }
 
 
@@ -361,32 +282,57 @@ public class SocialMediaWindow {
 
 
     /**
-     * updates the bars and their heights to accurately depict sort
+     * update the display
      */
-    public void updateBars() {
+    private void display() {
 
-    }
-    
-    public void diplay()
-    {
-        Iterator<Data> pointer = currData.iterator(); 
-        int index = 0; 
-        while (pointer.hasNext())
-        {
-            Influencer curr = pointer.next().getInfluencer(); 
-            pointer.next(); 
-            bars[index] /// set whatever to update the bars 
-            if (rate.equals("T"))
-            {
-                text[index] //update to traditional 
+        // bars[0].remove();
+        // display information to gui
+        Iterator<Data> pointer = currData.iterator();
+        System.out.println(currData.size());
+        index = 0;
+        while (pointer.hasNext()) {
+
+            // get random color for bars
+            TestableRandom generator = new TestableRandom();
+            color = new Color(generator.nextInt(255), generator.nextInt(255),
+                generator.nextInt(255));
+
+            curr = pointer.next().getInfluencer();
+            // pointer.next();
+            System.out.println(curr);
+
+            // update to appropriate name
+            channelNames[index].setText(curr.getChannelName());
+            window.addShape(channelNames[index]);
+
+// how to do the bars without a set height?
+            if (rate.equals("T")) {
+                // update bars
+                bars[index] = new Shape(20 * (index + 1), 250 - (int)curr
+                    .getTraditionalEngagement(), 30, (int)curr
+                        .getTraditionalEngagement(), color);
+
+                window.addShape(bars[index]);
+
+                // update the rates
+                rateNums[index].setText(String.valueOf(df.format(curr
+                    .getTraditionalEngagement())));
+                window.addShape(rateNums[index]);
+
             }
-            else
-            {
-                text[index] //update to reach using 
-                    //curr.getReach 
+            else {
+                // update bars
+                bars[index] = new Shape((20 * (index + 1)), 125, 30, 125,
+                    color);
+                window.addShape(bars[index]);
+                // update the rates
+                rateNums[index].setText(String.valueOf(df.format(curr
+                    .getEngagementReach())));
+                window.addShape(rateNums[index]);
             }
-            text[index] //whatever you want to do to the bar 
-            index++
+            index++;
+
         }
     }
 }
