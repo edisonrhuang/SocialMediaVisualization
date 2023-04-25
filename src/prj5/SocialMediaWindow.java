@@ -313,7 +313,7 @@ public class SocialMediaWindow {
 // how to do the bars without a set height?
             if (rate.equals("T")) {
                 // update bars
-                bars[index] = new Shape(20 * (index + 1), 250 - (int)curr
+                bars[index] = new Shape(rateNums[index].getX(), 250 - (int)curr
                     .getTraditionalEngagement(), 30, (int)curr
                         .getTraditionalEngagement(), color);
                 window.addShape(bars[index]);
@@ -326,8 +326,9 @@ public class SocialMediaWindow {
             }
             else {
                 // update bars
-                bars[index] = new Shape((20 * (index + 1)), 125, 30, 125,
-                    color);
+                bars[index] = new Shape(rateNums[index].getX(), 250 - (int)curr
+                    .getEngagementReach(), 30, (int)curr
+                        .getEngagementReach(), color);
                 window.addShape(bars[index]);
                 // update the rates
                 rateNums[index].setText(String.valueOf(df.format(curr
