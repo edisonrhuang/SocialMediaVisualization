@@ -89,8 +89,6 @@ public class FileReader {
                     tokens[3], tokens[4], arr[0], arr[1], arr[2], arr[3],
                     arr[4]);
                 Data data = new Data(tokens[0], influ);
-                // add all data to one list for 1st quarter
-                sllAll.add(data);
                 // if specified month, add it to that list
 
                 if (tokens[0].equals("January")) {
@@ -101,6 +99,11 @@ public class FileReader {
                 }
                 if (tokens[0].equals("March")) {
                     sllMarch.add(data);
+                }
+                // add all data to one list for 1st quarter
+                if (tokens[0].equals("January") || tokens[0].equals("February")
+                    || tokens[0].equals("March")) {
+                    sllAll.add(data);
                 }
             }
         }
