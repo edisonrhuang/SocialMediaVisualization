@@ -3,6 +3,7 @@ package prj5;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import cs2.Button;
 import cs2.Shape;
 import cs2.TextShape;
@@ -13,8 +14,9 @@ public class SocialMediaWindow {
 
     private Window window;
     private String month;
-    private SLList[] list;
+    private SLList[] listArr;
     private String rate;
+    private SLList currData; 
 
     private Button channelName;
     private Button engagementRate;
@@ -47,6 +49,8 @@ public class SocialMediaWindow {
     private TextShape barMidLeftNum;
     private TextShape barMidRightNum;
     private TextShape barRightNum;
+    
+    
 
     private DecimalFormat df;
 
@@ -241,7 +245,8 @@ public class SocialMediaWindow {
      */
     public void clickedEngagementRate(Button button) {
         // change to appropriate sort in top left corner
-        sortBy.setText("Sorting by Engagement Rate");
+        sortBy.setText("Sorting by Engagement Rate"); 
+        
 
     }
 
@@ -256,6 +261,17 @@ public class SocialMediaWindow {
         // change to appropriate rate in top left corner
         rateType.setText("Traditional Engagement Rate");
         rate = "T";
+        
+        Iterator<Data> pointer = currData.iterator(); 
+        int index = 0; 
+        while (pointer.hasNext())
+        {
+            Influencer currInflu = pointer.next().getInfluencer(); 
+            double rate = currInflu.getTraditionalEngagement(); 
+            currInflu.setTraditionalRate(rate);
+        }
+        display(); 
+        
     }
 
 
@@ -278,13 +294,16 @@ public class SocialMediaWindow {
      * @param button
      *            the jan button
      */
-    public void clickedJan(Button button) {
+    public void clickedJan(Button button) 
+    {
+        
         // change to appropriate time frame in top left corner
         timeFrame.setText("January");
         // set list to month appropriate data passed in from reader
 
         // we may need to change this
         // list = listArr[0];
+        currData = listArr[0]; 
     }
 
 
@@ -346,5 +365,28 @@ public class SocialMediaWindow {
      */
     public void updateBars() {
 
+    }
+    
+    public void diplay()
+    {
+        Iterator<Data> pointer = currData.iterator(); 
+        int index = 0; 
+        while (pointer.hasNext())
+        {
+            Influencer curr = pointer.next().getInfluencer(); 
+            pointer.next(); 
+            bars[index] /// set whatever to update the bars 
+            if (rate.equals("T"))
+            {
+                text[index] //update to traditional 
+            }
+            else
+            {
+                text[index] //update to reach using 
+                    //curr.getReach 
+            }
+            text[index] //whatever you want to do to the bar 
+            index++
+        }
     }
 }
