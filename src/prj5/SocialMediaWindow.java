@@ -122,9 +122,10 @@ public class SocialMediaWindow {
         rateNums[2] = new TextShape(RIGHTMIDALIGN, 270, "", Color.black);
         rateNums[3] = new TextShape(RIGHTALIGN, 270, "", Color.black);
 
+        rate = "T";
         clickedJan(janButton);
-        clickedTraditionalRate(traditionalEngagement);
         clickedChannel(channelName);
+        clickedTraditionalRate(traditionalEngagement);
 
     }
 
@@ -293,14 +294,17 @@ public class SocialMediaWindow {
         index = 0;
         while (pointer.hasNext()) {
 
+            if (bars[index] != null)
+            {
+                window.removeShape(bars[index]);
+            }
+            
             // get random color for bars
             TestableRandom generator = new TestableRandom();
             color = new Color(generator.nextInt(255), generator.nextInt(255),
                 generator.nextInt(255));
 
             curr = pointer.next().getInfluencer();
-            // pointer.next();
-            System.out.println(curr);
 
             // update to appropriate name
             channelNames[index].setText(curr.getChannelName());
@@ -312,7 +316,6 @@ public class SocialMediaWindow {
                 bars[index] = new Shape(20 * (index + 1), 250 - (int)curr
                     .getTraditionalEngagement(), 30, (int)curr
                         .getTraditionalEngagement(), color);
-
                 window.addShape(bars[index]);
 
                 // update the rates
@@ -334,5 +337,12 @@ public class SocialMediaWindow {
             index++;
 
         }
+        
+        
+    }
+    
+    public void displayBars(Shape[] shape)
+    {
+        
     }
 }

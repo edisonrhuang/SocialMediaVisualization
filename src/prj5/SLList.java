@@ -397,7 +397,7 @@ public class SLList implements Iterable<Data> {
 
     /**
      * new iterator
-     * 
+     *  
      * @return Iterator<Data> iterator to iterate through Datas
      */
     @Override
