@@ -1,6 +1,8 @@
 package prj5;
 
 import java.awt.Color;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import cs2.Button;
 import cs2.Shape;
 import cs2.TextShape;
@@ -9,11 +11,10 @@ import cs2.WindowSide;
 
 public class SocialMediaWindow {
 
-    private int rate;
     private Window window;
     private String month;
-    private SLList[] listArr;
-    private SLList list;
+    private SLList[] list;
+    private String rate;
 
     private Button channelName;
     private Button engagementRate;
@@ -39,15 +40,21 @@ public class SocialMediaWindow {
     private TextShape barMidRightName;
     private TextShape barRightName;
 
+    private TextShape barNameLine;
+    private TextShape barNumLine;
+
     private TextShape barLeftNum;
     private TextShape barMidLeftNum;
     private TextShape barMidRightNum;
     private TextShape barRightNum;
 
+    private DecimalFormat df;
+
     public SocialMediaWindow(SLList[] monthArr) {
 
-        listArr = monthArr;
+        list = monthArr;
         window = new Window("Social Media Vis");
+        df = new DecimalFormat("#.#");
 
         // click channel name
         channelName = new Button("Sort by Channel Name");
@@ -102,25 +109,37 @@ public class SocialMediaWindow {
         timeFrame = new TextShape(10, 10, "", Color.black);
         window.addShape(timeFrame);
 
+        barLeft = new Shape(20, window.getGraphPanelHeight() - 120, 20, 100,
+            Color.black);
+        window.addShape(barLeft);
+        barLeft.
+        
+
         // setting up bar channelName titles
-        barLeftName = new TextShape(20, 225, "", Color.black);
-        window.addShape(barLeftName);
-        barMidLeftName = new TextShape(50, 225, "", Color.black);
-        window.addShape(barMidLeftName);
-        barMidRightName = new TextShape(80, 225, "", Color.black);
-        window.addShape(barMidRightName);
-        barRightName = new TextShape(50, 225, "", Color.black);
-        window.addShape(barRightName);
+// barLeftName = new TextShape(20, 225, "", Color.black);
+// window.addShape(barLeftName);
+// barMidLeftName = new TextShape(100, 225, "", Color.black);
+// window.addShape(barMidLeftName);
+// barMidRightName = new TextShape(200, 225, "", Color.black);
+// window.addShape(barMidRightName);
+// barRightName = new TextShape(300, 225, "", Color.black);
+// window.addShape(barRightName);
+
+        barNameLine = new TextShape(20, 225, "", Color.black);
+        window.addShape(barNameLine);
+
+        barNumLine = new TextShape(50, 225, "", Color.black);
+        window.addShape(barNumLine);
 
         // setting up bar numbers for rates
-        barLeftNum = new TextShape(20, 250, "", Color.black);
-        window.addShape(barLeftNum);
-        barMidLeftNum = new TextShape(50, 250, "", Color.black);
-        window.addShape(barMidLeftNum);
-        barMidRightName = new TextShape(80, 250, "", Color.black);
-        window.addShape(barMidRightNum);
-        barRightName = new TextShape(50, 250, "", Color.black);
-        window.addShape(barRightNum);
+// barLeftNum = new TextShape(20, 250, "", Color.black);
+// window.addShape(barLeftNum);
+// barMidLeftNum = new TextShape(50, 250, "", Color.black);
+// window.addShape(barMidLeftNum);
+// barMidRightNum = new TextShape(80, 250, "", Color.black);
+// window.addShape(barMidRightNum);
+// barRightNum = new TextShape(50, 250, "", Color.black);
+// window.addShape(barRightNum);
     }
 
 
@@ -135,13 +154,80 @@ public class SocialMediaWindow {
         sortBy.setText("Sorting by Channel Name");
 
         // use list[3] ????
-        list.sortByName();
-        barLeftName.setText(list.get(0).getInfluencer().getChannelName());
-        barMidLeftName.setText(list.get(1).getInfluencer().getChannelName());
-        barMidRightName.setText(list.get(2).getInfluencer().getChannelName());
-        barRightName.setText(list.get(4).getInfluencer().getChannelName());
+        // list.sortByName();
 
-        // how to know which rate to add under name?
+        ArrayList<String> channels = new ArrayList<String>();
+        for (int x = 0; x < list[3].size(); x++) {
+            // if the arraylist does not have channelname, add it
+            if (!channels.contains(list[3].get(x).getInfluencer()
+                .getChannelName())) {
+                channels.add(list[3].get(x).getInfluencer().getChannelName());
+            }
+        }
+
+        // make new list to store
+        SLList calculatedTrad = new SLList();
+
+        // loop through arraylist
+        for (int x = 0; x < channels.size(); x++) {
+            // System.out.println(channels.get(x) + ": ");
+            int likes = 0;
+            int comments = 0;
+            int follow = 0;
+
+            // if the array list contains channelname and the month equals
+            // Jan-March add comments and likes to total comments and likes
+            for (int y = 0; y < list[3].size(); y++) {
+                if ((list[3].get(y).getInfluencer().getChannelName().equals(
+                    channels.get(x))) && (list[3].get(y).getMonth().equals(
+                        "January") || list[3].get(y).getMonth().equals(
+                            "February") || list[3].get(y).getMonth().equals(
+                                "March"))) {
+                    comments += list[3].get(y).getInfluencer().getComments();
+                    likes += list[3].get(y).getInfluencer().getLikes();
+                }
+                // add the followers for just march for traditional calculation
+                if ((list[3].get(y).getInfluencer().getChannelName().equals(
+                    channels.get(x))) && (list[3].get(y).getMonth().equals(
+                        "March"))) {
+                    follow = list[3].get(y).getInfluencer().getFollowers();
+                }
+            }
+            double trad;
+            // account for zeros
+            if (follow == 0) {
+                trad = 0.0;
+            }
+            // else calculate the traditional rate
+            else {
+                trad = ((likes + comments) / (double)follow) * 100.0;
+            }
+            // make new influencer to store data traditional data and calculate
+            // the total traditional data
+            Influencer curr = new Influencer("", channels.get(x), "", "", 0, 0,
+                0, 0, 0);
+            curr.setTraditionalRate(trad);
+            Data currData = new Data("", curr);
+            calculatedTrad.add(currData);
+        }
+
+        // sort by name
+        calculatedTrad.sortByName();
+
+// barLeftName.setText(calculatedTrad.get(0).getInfluencer()
+// .getChannelName());
+// barMidLeftName.setText(calculatedTrad.get(1).getInfluencer()
+// .getChannelName());
+// barMidRightName.setText(calculatedTrad.get(2).getInfluencer()
+// .getChannelName());
+// barRightName.setText(calculatedTrad.get(3).getInfluencer()
+// .getChannelName());
+
+        barNameLine.setText(calculatedTrad.get(0).getInfluencer()
+            .getChannelName() + "  " + calculatedTrad.get(1).getInfluencer()
+                .getChannelName() + "  " + calculatedTrad.get(2).getInfluencer()
+                    .getChannelName() + "  " + calculatedTrad.get(3)
+                        .getInfluencer().getChannelName());
 
     }
 
@@ -156,6 +242,7 @@ public class SocialMediaWindow {
     public void clickedEngagementRate(Button button) {
         // change to appropriate sort in top left corner
         sortBy.setText("Sorting by Engagement Rate");
+
     }
 
 
@@ -168,6 +255,7 @@ public class SocialMediaWindow {
     public void clickedTraditionalRate(Button button) {
         // change to appropriate rate in top left corner
         rateType.setText("Traditional Engagement Rate");
+        rate = "T";
     }
 
 
@@ -180,6 +268,7 @@ public class SocialMediaWindow {
     public void clickedReachEngagement(Button button) {
         // change to appropriate rate in top left corner
         rateType.setText("Reach Engagement Rate");
+        rate = "R";
     }
 
 
@@ -195,7 +284,7 @@ public class SocialMediaWindow {
         // set list to month appropriate data passed in from reader
 
         // we may need to change this
-        list = listArr[0];
+        // list = listArr[0];
     }
 
 
@@ -209,7 +298,7 @@ public class SocialMediaWindow {
         // change to appropriate time frame in top left corner
         timeFrame.setText("February");
         // set list to month appropriate data passed in from reader
-        list = listArr[1];
+        // list = listArr[1];
     }
 
 
@@ -223,7 +312,7 @@ public class SocialMediaWindow {
         // change to appropriate time frame in top left corner
         timeFrame.setText("March");
         // set list to month appropriate data passed in from reader
-        list = listArr[2];
+        // list = listArr[2];
     }
 
 
@@ -237,7 +326,7 @@ public class SocialMediaWindow {
         // change to appropriate time frame in top left corner
         timeFrame.setText("First Quarter (Jan-March)");
         // set list to month appropriate data passed in from reader
-        list = listArr[3];
+        // list = listArr[3];
     }
 
 
