@@ -44,14 +44,14 @@ public class Input {
             fr = new FileReader(args[0]);
             list = fr.getList();
             
-            SocialMediaWindow smw = new SocialMediaWindow(list);
+            GUISocialMediaWindow smw = new GUISocialMediaWindow(list);
         }
         // else use default file
         else {
             fr = new FileReader("SampleInput1_2022.csv");
             list = fr.getList();
             
-            SocialMediaWindow smw = new SocialMediaWindow(list);
+            GUISocialMediaWindow smw = new GUISocialMediaWindow(list);
         }
 
         // make new decimal formatting
