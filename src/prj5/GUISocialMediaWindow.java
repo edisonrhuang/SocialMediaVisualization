@@ -11,10 +11,22 @@ import cs2.Window;
 import cs2.WindowSide;
 import student.TestableRandom;
 
-public class SocialMediaWindow {
+// Virginia Tech Honor Code Pledge:
+//
+// As a Hokie, I will conduct myself with honor and integrity at all times.
+// I will not lie, cheat, or steal, nor will I accept the actions of those who
+// do.
+// - Faith Jones (fejones20)
+
+/**
+ * 
+ * @author Faith Jones (fejones20)
+ * @version 2023.04.26
+ *
+ */
+public class GUISocialMediaWindow {
 
     private Window window;
-    private String month;
     private SLList[] listArr;
     private String rate;
     private SLList currData;
@@ -24,16 +36,6 @@ public class SocialMediaWindow {
     private static final int LEFTMIDALIGN = 100;
     private static final int RIGHTMIDALIGN = 180;
     private static final int RIGHTALIGN = 260;
-
-    private Button channelName;
-    private Button engagementRate;
-    private Button traditionalEngagement;
-    private Button reachEngagement;
-    private Button janButton;
-    private Button febButton;
-    private Button marchButton;
-    private Button firstQuarter;
-    private Button quit;
 
     private TextShape timeFrame;
     private TextShape rateType;
@@ -46,57 +48,64 @@ public class SocialMediaWindow {
     private DecimalFormat df;
 
     private Influencer curr;
-    private int index;
     private Color color;
 
-    public SocialMediaWindow(SLList[] monthArr) {
+    /**
+     * GUI construction setting up the window and all the buttons and displays
+     * jan traditional engagement sorted by name to start
+     * 
+     * @param monthArr
+     *            the month arrays passed in from file reader
+     */
+    public GUISocialMediaWindow(SLList[] monthArr) {
 
         listArr = monthArr;
         window = new Window("Social Media Vis");
         df = new DecimalFormat("#.#");
 
         // click channel name
-        channelName = new Button("Sort by Channel Name");
+        Button channelName = new Button("Sort by Channel Name");
         window.addButton(channelName, WindowSide.NORTH);
         channelName.onClick(this, "clickedChannel");
 
         // click Engagement Rate
-        engagementRate = new Button("Sort by Engagement Rate");
+        Button engagementRate = new Button("Sort by Engagement Rate");
         window.addButton(engagementRate, WindowSide.NORTH);
         engagementRate.onClick(this, "clickedEngagementRate");
 
         // click Traditional Rate
-        traditionalEngagement = new Button("Traditional Engagement Rate");
+        Button traditionalEngagement = new Button(
+            "Traditional Engagement Rate");
         window.addButton(traditionalEngagement, WindowSide.WEST);
         traditionalEngagement.onClick(this, "clickedTraditionalRate");
 
         // click Engagement Reach
-        reachEngagement = new Button("Reach Engagement Rate");
+        Button reachEngagement = new Button("Reach Engagement Rate");
         window.addButton(reachEngagement, WindowSide.WEST);
         reachEngagement.onClick(this, "clickedReachEngagement");
 
         // click january
-        janButton = new Button("January");
+        Button janButton = new Button("January");
         window.addButton(janButton, WindowSide.SOUTH);
         janButton.onClick(this, "clickedJan");
 
         // click february
-        febButton = new Button("February");
+        Button febButton = new Button("February");
         window.addButton(febButton, WindowSide.SOUTH);
         febButton.onClick(this, "clickedFeb");
 
         // click march
-        marchButton = new Button("March");
+        Button marchButton = new Button("March");
         window.addButton(marchButton, WindowSide.SOUTH);
         marchButton.onClick(this, "clickedMarch");
 
         // click first quarter
-        firstQuarter = new Button("First Quarter (Jan-March)");
+        Button firstQuarter = new Button("First Quarter (Jan-March)");
         window.addButton(firstQuarter, WindowSide.SOUTH);
         firstQuarter.onClick(this, "clickedFirstQuarter");
 
         // click quit
-        quit = new Button("Quit");
+        Button quit = new Button("Quit");
         window.addButton(quit, WindowSide.NORTH);
         quit.onClick(this, "clickedQuit");
 
@@ -108,21 +117,24 @@ public class SocialMediaWindow {
         timeFrame = new TextShape(10, 10, "", Color.black);
         window.addShape(timeFrame);
 
+        // make arrays to hold values for changing
         bars = new Shape[4];
         channelNames = new TextShape[4];
         rateNums = new TextShape[4];
 
-        // bars[0] = new Shape
+        // setting up channel name line
         channelNames[0] = new TextShape(LEFTALIGN, 250, "", Color.black);
         channelNames[1] = new TextShape(LEFTMIDALIGN, 250, "", Color.black);
         channelNames[2] = new TextShape(RIGHTMIDALIGN, 250, "", Color.black);
         channelNames[3] = new TextShape(RIGHTALIGN, 250, "", Color.black);
 
+        // setting up the number line
         rateNums[0] = new TextShape(LEFTALIGN, 270, "", Color.black);
         rateNums[1] = new TextShape(LEFTMIDALIGN, 270, "", Color.black);
         rateNums[2] = new TextShape(RIGHTMIDALIGN, 270, "", Color.black);
         rateNums[3] = new TextShape(RIGHTALIGN, 270, "", Color.black);
 
+        // display initial graph
         rate = "T";
         clickedJan(janButton);
         clickedChannel(channelName);
@@ -186,8 +198,8 @@ public class SocialMediaWindow {
         Iterator<Data> pointer = currData.iterator();
         while (pointer.hasNext()) {
             Influencer currInflu = pointer.next().getInfluencer();
-            double rate = currInflu.getTraditionalEngagement();
-            currInflu.setTraditionalRate(rate);
+            double rateCalc = currInflu.getTraditionalEngagement();
+            currInflu.setTraditionalRate(rateCalc);
         }
         display();
 
@@ -208,8 +220,8 @@ public class SocialMediaWindow {
         Iterator<Data> pointer = currData.iterator();
         while (pointer.hasNext()) {
             Influencer currInflu = pointer.next().getInfluencer();
-            double rate = currInflu.getEngagementReach();
-            currInflu.setEngagementRate(rate);
+            double rateCalc = currInflu.getEngagementReach();
+            currInflu.setEngagementRate(rateCalc);
         }
         display();
     }
@@ -284,15 +296,18 @@ public class SocialMediaWindow {
 
 
     /**
-     * update the display
+     * update the display by calculating the appropriate total calculation for
+     * the
+     * fisrt quarter or use individual data for individual months
      */
     private void display() {
 
         // bars[0].remove();
         // display information to gui
         Iterator<Data> pointer = currData.iterator();
-        index = 0;
+        int index = 0;
 
+        // makes the array of all data into a new list to store total values
         if (currData.size() > 4) {
             ArrayList<String> channels = new ArrayList<String>();
             for (int x = 0; x < currData.size(); x++) {
@@ -502,6 +517,7 @@ public class SocialMediaWindow {
                 }
             }
         }
+        // if not the first-quarter, use individual arrays to do sorting
         else {
             while (pointer.hasNext()) {
                 if (bars[index] != null) {
@@ -519,7 +535,6 @@ public class SocialMediaWindow {
                 channelNames[index].setText(curr.getChannelName());
                 window.addShape(channelNames[index]);
 
-                // how to do the bars without a set height?
                 if (rate.equals("T")) {
                     // update bars
                     bars[index] = new Shape(rateNums[index].getX(), 250
