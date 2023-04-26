@@ -1,5 +1,12 @@
 package prj5;
 
+// Virginia Tech Honor Code Pledge:
+//
+// As a Hokie, I will conduct myself with honor and integrity at all times.
+// I will not lie, cheat, or steal, nor will I accept the actions of those who
+// do.
+// - Faith Jones (fejones20)
+
 import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -10,13 +17,6 @@ import cs2.TextShape;
 import cs2.Window;
 import cs2.WindowSide;
 import student.TestableRandom;
-
-// Virginia Tech Honor Code Pledge:
-//
-// As a Hokie, I will conduct myself with honor and integrity at all times.
-// I will not lie, cheat, or steal, nor will I accept the actions of those who
-// do.
-// - Faith Jones (fejones20)
 
 /**
  * 
@@ -36,6 +36,12 @@ public class GUISocialMediaWindow {
     private static final int LEFTMIDALIGN = 100;
     private static final int RIGHTMIDALIGN = 180;
     private static final int RIGHTALIGN = 260;
+    private static final int TEXTPOSITION = 250;
+    private static final int RATEPOSITION = 270;
+    private static final int BARWIDTH = 30;
+    private static final int BARY = 250;
+
+    private static final int TOPLEFTSPACING = 10;
 
     private TextShape timeFrame;
     private TextShape rateType;
@@ -109,12 +115,15 @@ public class GUISocialMediaWindow {
         window.addButton(quit, WindowSide.NORTH);
         quit.onClick(this, "clickedQuit");
 
-        // setting up upper left hand corner text values
-        sortBy = new TextShape(10, 50, "", Color.black);
+        // setting up upper left hand corner text values with proper spacing
+        sortBy = new TextShape(TOPLEFTSPACING, window.getGraphPanelHeight()
+            - 241, "", Color.black);
         window.addShape(sortBy);
-        rateType = new TextShape(10, 30, "", Color.black);
+        rateType = new TextShape(TOPLEFTSPACING, window.getGraphPanelHeight()
+            - 261, "", Color.black);
         window.addShape(rateType);
-        timeFrame = new TextShape(10, 10, "", Color.black);
+        timeFrame = new TextShape(TOPLEFTSPACING, window.getGraphPanelHeight()
+            - 281, "", Color.black);
         window.addShape(timeFrame);
 
         // make arrays to hold values for changing
@@ -123,16 +132,22 @@ public class GUISocialMediaWindow {
         rateNums = new TextShape[4];
 
         // setting up channel name line
-        channelNames[0] = new TextShape(LEFTALIGN, 250, "", Color.black);
-        channelNames[1] = new TextShape(LEFTMIDALIGN, 250, "", Color.black);
-        channelNames[2] = new TextShape(RIGHTMIDALIGN, 250, "", Color.black);
-        channelNames[3] = new TextShape(RIGHTALIGN, 250, "", Color.black);
+        channelNames[0] = new TextShape(LEFTALIGN, TEXTPOSITION, "",
+            Color.black);
+        channelNames[1] = new TextShape(LEFTMIDALIGN, TEXTPOSITION, "",
+            Color.black);
+        channelNames[2] = new TextShape(RIGHTMIDALIGN, TEXTPOSITION, "",
+            Color.black);
+        channelNames[3] = new TextShape(RIGHTALIGN, TEXTPOSITION, "",
+            Color.black);
 
         // setting up the number line
-        rateNums[0] = new TextShape(LEFTALIGN, 270, "", Color.black);
-        rateNums[1] = new TextShape(LEFTMIDALIGN, 270, "", Color.black);
-        rateNums[2] = new TextShape(RIGHTMIDALIGN, 270, "", Color.black);
-        rateNums[3] = new TextShape(RIGHTALIGN, 270, "", Color.black);
+        rateNums[0] = new TextShape(LEFTALIGN, RATEPOSITION, "", Color.black);
+        rateNums[1] = new TextShape(LEFTMIDALIGN, RATEPOSITION, "",
+            Color.black);
+        rateNums[2] = new TextShape(RIGHTMIDALIGN, RATEPOSITION, "",
+            Color.black);
+        rateNums[3] = new TextShape(RIGHTALIGN, RATEPOSITION, "", Color.black);
 
         // display initial graph
         rate = "T";
@@ -297,17 +312,19 @@ public class GUISocialMediaWindow {
 
     /**
      * update the display by calculating the appropriate total calculation for
-     * the
-     * fisrt quarter or use individual data for individual months
+     * the fisrt quarter or use individual data for individual months
+     * 
+     * displays the bars, text, and numbers on the screen dependent upon the
+     * data
      */
     private void display() {
 
-        // bars[0].remove();
         // display information to gui
         Iterator<Data> pointer = currData.iterator();
         int index = 0;
 
         // makes the array of all data into a new list to store total values
+        // first quarter calculations
         if (currData.size() > 4) {
             ArrayList<String> channels = new ArrayList<String>();
             for (int x = 0; x < currData.size(); x++) {
@@ -323,7 +340,7 @@ public class GUISocialMediaWindow {
                 // make new list to store
                 SLList calculatedTrad = new SLList();
 
-                // loop through arraylist
+                // loop through arraylist to get all total info
                 for (int x = 0; x < channels.size(); x++) {
                     // System.out.println(channels.get(x) + ": ");
                     int likes = 0;
@@ -331,10 +348,8 @@ public class GUISocialMediaWindow {
                     int views = 0;
                     int follow = 0;
 
-                    // if the array list contains channelname and the month
-                    // equals
-                    // Jan-March add comments and likes to total comments
-                    // and likes
+                    // add the months comments, likes, and views if its one of
+                    // the 3 months in the first quarter
                     for (int y = 0; y < currData.size(); y++) {
                         if ((currData.get(y).getInfluencer().getChannelName()
                             .equals(channels.get(x))) && (currData.get(y)
@@ -371,7 +386,7 @@ public class GUISocialMediaWindow {
                         "", 0, 0, 0, 0, 0);
                     currInf.setTraditionalRate(trad);
                     Data data = new Data("", currInf);
-
+                    // account for null
                     if (calculatedData == null) {
                         calculatedTrad.add(data);
                     }
@@ -403,9 +418,7 @@ public class GUISocialMediaWindow {
                 if (calculatedData == null) {
                     calculatedData = calculatedTrad;
                 }
-
-                // calculatedData.sortByName();
-
+                // display the shapes in screen
                 for (int x = 0; x < calculatedData.size(); x++) {
                     if (bars[x] != null) {
                         window.removeShape(bars[x]);
@@ -422,14 +435,14 @@ public class GUISocialMediaWindow {
                     // channelNames[x].setText(curr.getChannelName());
                     channelNames[x].setText(channels.get(x));
                     window.addShape(channelNames[x]);
-
-                    bars[x] = new Shape(rateNums[x].getX(), 250
+                    // update bars
+                    bars[x] = new Shape(rateNums[x].getX(), BARY
                         - (int)calculatedData.get(x).getInfluencer()
-                            .getTraditionalEngagement(), 30, (int)calculatedData
-                                .get(x).getInfluencer()
-                                .getTraditionalEngagement(), color);
+                            .getTraditionalEngagement(), BARWIDTH,
+                        (int)calculatedData.get(x).getInfluencer()
+                            .getTraditionalEngagement(), color);
                     window.addShape(bars[x]);
-
+                    // account for month rate = 0
                     if (calculatedData.get(x).getInfluencer()
                         .getTraditionalEngagement() == 0.0) {
                         rateNums[x].setText("N/A");
@@ -453,10 +466,8 @@ public class GUISocialMediaWindow {
                     int comments = 0;
                     int views = 0;
                     int follow = 0;
-
-                    // get the channel names and their corresponding data for
-                    // views,
-                    // comments, and likes
+                    // get the total views comments and likes for reach from all
+                    // months (total)
                     for (int y = 0; y < currData.size(); y++) {
                         if ((currData.get(y).getInfluencer().getChannelName()
                             .equals(channels.get(x))) && (currData.get(y)
@@ -471,7 +482,7 @@ public class GUISocialMediaWindow {
                                 .getComments();
                             likes += currData.get(y).getInfluencer().getLikes();
                         }
-
+                        // add up total followers for march
                         if ((currData.get(y).getInfluencer().getChannelName()
                             .equals(channels.get(x))) && (currData.get(y)
                                 .getMonth().equals("March"))) {
@@ -511,8 +522,7 @@ public class GUISocialMediaWindow {
                         trad = ((likes + comments) / (double)follow) * 100.0;
                     }
                     // make new influencer to store data traditional data
-                    // and calculate
-                    // the total traditional data
+                    // and calculate the total traditional data
                     currInf.setTraditionalRate(trad);
 
                     if (calculatedData == null) {
@@ -546,14 +556,14 @@ public class GUISocialMediaWindow {
                     curr = pointer.next().getInfluencer();
 
                     // update to appropriate name
-                    // channelNames[x].setText(curr.getChannelName());
                     channelNames[x].setText(channels.get(x));
                     window.addShape(channelNames[x]);
 
-                    bars[x] = new Shape(rateNums[x].getX(), 250
+                    bars[x] = new Shape(rateNums[x].getX(), BARY
                         - (int)calculatedData.get(x).getInfluencer()
-                            .getEngagementReach(), 30, (int)calculatedData.get(
-                                x).getInfluencer().getEngagementReach(), color);
+                            .getEngagementReach(), BARWIDTH, (int)calculatedData
+                                .get(x).getInfluencer().getEngagementReach(),
+                        color);
                     window.addShape(bars[x]);
 
                     if (calculatedData.get(x).getInfluencer()
@@ -592,9 +602,9 @@ public class GUISocialMediaWindow {
 
                 if (rate.equals("T")) {
                     // update bars
-                    bars[index] = new Shape(rateNums[index].getX(), 250
-                        - (int)curr.getTraditionalEngagement(), 30, (int)curr
-                            .getTraditionalEngagement(), color);
+                    bars[index] = new Shape(rateNums[index].getX(), BARY
+                        - (int)curr.getTraditionalEngagement(), BARWIDTH,
+                        (int)curr.getTraditionalEngagement(), color);
                     window.addShape(bars[index]);
 
                     if (curr.getTraditionalEngagement() == 0.0) {
@@ -611,8 +621,8 @@ public class GUISocialMediaWindow {
                 }
                 else {
                     // update bars
-                    bars[index] = new Shape(rateNums[index].getX(), 250
-                        - (int)curr.getEngagementReach(), 30, (int)curr
+                    bars[index] = new Shape(rateNums[index].getX(), BARY
+                        - (int)curr.getEngagementReach(), BARWIDTH, (int)curr
                             .getEngagementReach(), color);
                     window.addShape(bars[index]);
 
