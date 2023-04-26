@@ -290,13 +290,15 @@ public class SocialMediaWindow {
         // bars[0].remove();
         // display information to gui
         Iterator<Data> pointer = currData.iterator();
+        System.out.println(currData.size());
         index = 0;
         while (pointer.hasNext()) {
 
-            if (bars[index] != null) {
+            if (bars[index] != null)
+            {
                 window.removeShape(bars[index]);
             }
-
+            
             // get random color for bars
             TestableRandom generator = new TestableRandom();
             color = new Color(generator.nextInt(255), generator.nextInt(255),
@@ -317,37 +319,31 @@ public class SocialMediaWindow {
                 window.addShape(bars[index]);
 
                 // update the rates
-                if (curr.getTraditionalEngagement() == 0) {
-                    rateNums[index].setText("N/A");
-                    window.addShape(rateNums[index]);
-                }
-                else {
-                    rateNums[index].setText(String.valueOf(df.format(curr
-                        .getTraditionalEngagement())));
-                    window.addShape(rateNums[index]);
-                }
+                rateNums[index].setText(String.valueOf(df.format(curr
+                    .getTraditionalEngagement())));
+                window.addShape(rateNums[index]);
 
             }
             else {
                 // update bars
                 bars[index] = new Shape(rateNums[index].getX(), 250 - (int)curr
-                    .getEngagementReach(), 30, (int)curr.getEngagementReach(),
-                    color);
+                    .getEngagementReach(), 30, (int)curr
+                        .getEngagementReach(), color);
                 window.addShape(bars[index]);
                 // update the rates
-                if (curr.getEngagementReach() == 0) {
-                    rateNums[index].setText("N/A");
-                    window.addShape(rateNums[index]);
-                }
-                else {
-                    rateNums[index].setText(String.valueOf(df.format(curr
-                        .getEngagementReach())));
-                    window.addShape(rateNums[index]);
-                }
+                rateNums[index].setText(String.valueOf(df.format(curr
+                    .getEngagementReach())));
+                window.addShape(rateNums[index]);
             }
             index++;
 
         }
-
+        
+        
+    }
+    
+    public void displayBars(Shape[] shape)
+    {
+        
     }
 }
