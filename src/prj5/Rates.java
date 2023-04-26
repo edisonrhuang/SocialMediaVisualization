@@ -61,7 +61,8 @@ public class Rates implements Comparable {
      * Given another Rate, compares the two's rate field and returns -1 if this
      * is smaller, 0 if they are equal, 1 if this is larger.
      * 
-     * @param r
+     * @param o
+     *            the object being compared
      *            Other rate to be compared to
      * @return Returns -1 if this is smaller, 0 if equal, 1 if larger
      */
