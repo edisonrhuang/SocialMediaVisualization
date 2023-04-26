@@ -562,8 +562,4 @@ public class SocialMediaWindow {
         }
     }
 
-
-    public void displayBars(Shape[] shape) {
-
-    }
 }
