@@ -313,6 +313,7 @@ public class SocialMediaWindow {
                     // System.out.println(channels.get(x) + ": ");
                     int likes = 0;
                     int comments = 0;
+                    int views = 0;
                     int follow = 0;
 
                     // if the array list contains channelname and the month
@@ -328,6 +329,7 @@ public class SocialMediaWindow {
                             comments += currData.get(y).getInfluencer()
                                 .getComments();
                             likes += currData.get(y).getInfluencer().getLikes();
+                            views += currData.get(y).getInfluencer().getViews();
                         }
                         // add the followers for just march for traditional
                         // calculation
@@ -361,6 +363,25 @@ public class SocialMediaWindow {
                     else {
                         calculatedData.get(x).getInfluencer()
                             .setTraditionalRate(trad);
+                    }
+
+                    double reach;
+                    // account for zeros
+                    if (views == 0) {
+                        reach = 0.0;
+                    }
+                    // else calculate the reach
+                    else {
+                        reach = ((likes + comments) / (double)views) * 100.0;
+                    }
+
+                    if (calculatedData == null) {
+                        calculatedTrad.get(x).getInfluencer().setEngagementRate(
+                            reach);
+                    }
+                    else {
+                        calculatedData.get(x).getInfluencer().setEngagementRate(
+                            reach);
                     }
                 }
 
@@ -407,6 +428,7 @@ public class SocialMediaWindow {
                         window.addShape(rateNums[x]);
                     }
                 }
+                currData = calculatedData;
             }
             else {
                 SLList calculatedEng = new SLList();
@@ -415,6 +437,8 @@ public class SocialMediaWindow {
                     int likes = 0;
                     int comments = 0;
                     int views = 0;
+                    int follow = 0;
+
                     // get the channel names and their corresponding data for
                     // views,
                     // comments, and likes
@@ -431,6 +455,13 @@ public class SocialMediaWindow {
                             comments += currData.get(y).getInfluencer()
                                 .getComments();
                             likes += currData.get(y).getInfluencer().getLikes();
+                        }
+
+                        if ((currData.get(y).getInfluencer().getChannelName()
+                            .equals(channels.get(x))) && (currData.get(y)
+                                .getMonth().equals("March"))) {
+                            follow = currData.get(y).getInfluencer()
+                                .getFollowers();
                         }
                     }
                     double reach;
@@ -453,6 +484,29 @@ public class SocialMediaWindow {
                     else {
                         calculatedData.get(x).getInfluencer().setEngagementRate(
                             reach);
+                    }
+
+                    double trad;
+                    // account for zeros
+                    if (follow == 0) {
+                        trad = 0.0;
+                    }
+                    // else calculate the traditional rate
+                    else {
+                        trad = ((likes + comments) / (double)follow) * 100.0;
+                    }
+                    // make new influencer to store data traditional data
+                    // and calculate
+                    // the total traditional data
+                    currInf.setTraditionalRate(trad);
+
+                    if (calculatedData == null) {
+                        calculatedEng.get(x).getInfluencer().setTraditionalRate(
+                            trad);
+                    }
+                    else {
+                        calculatedData.get(x).getInfluencer()
+                            .setTraditionalRate(trad);
                     }
                 }
 
@@ -500,6 +554,7 @@ public class SocialMediaWindow {
                         window.addShape(rateNums[x]);
                     }
                 }
+                currData = calculatedData;
             }
         }
         else {
